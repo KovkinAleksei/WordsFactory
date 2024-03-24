@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -59,32 +60,6 @@ fun OnBoardingScreen(vm: OnBoardingViewModel = viewModel())
         )
 
         FirstOnBoardScreen()
-        Pagination()
-        Spacer(modifier = Modifier.weight(1f))
-
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(70.dp)
-                .padding(24.dp, 0.dp, 24.dp, 24.dp)
-                .defaultMinSize(1.dp, 1.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = PrimaryColor
-            ),
-            onClick = {
-                vm.onNextClick()
-            }
-        ) {
-            Text(
-                text = stringResource(id = R.string.next),
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    color = Color.White,
-                    fontWeight = FontWeight.Medium
-                )
-            )
-        }
     }
 }
 
@@ -102,6 +77,8 @@ fun FirstOnBoardScreen()
             contentDescription = null
         )
 
+        Spacer(Modifier.weight(1f))
+
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -118,7 +95,7 @@ fun FirstOnBoardScreen()
 
         Text(
             modifier = Modifier
-                .padding(16.dp, 8.dp, 16.dp, 0.dp),
+                .padding(16.dp, 8.dp, 16.dp, 40.dp),
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.quarantine),
             style = TextStyle(
@@ -127,6 +104,9 @@ fun FirstOnBoardScreen()
             ),
             lineHeight = 21.sp
         )
+
+        Pagination()
+        NextButton()
     }
 }
 
@@ -138,7 +118,7 @@ fun Pagination(vm: OnBoardingViewModel = viewModel())
 
     Row(
         modifier = Modifier
-            .padding(0.dp, 30.dp, 0.dp, 0.dp),
+            .padding(0.dp, 0.dp, 0.dp, 54.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Spacer(modifier = Modifier.weight(1f))
@@ -177,4 +157,35 @@ fun UnselectedPage()
             .clip(CircleShape)
             .background(PaginationColor)
     )
+}
+
+// Кнопка продолжения
+@Composable
+fun NextButton(
+    vm : OnBoardingViewModel = viewModel()
+)
+{
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(80.dp)
+            .padding(24.dp, 0.dp, 24.dp, 24.dp)
+            .defaultMinSize(1.dp, 1.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = PrimaryColor
+        ),
+        onClick = {
+            vm.onNextClick()
+        }
+    ) {
+        Text(
+            text = stringResource(id = R.string.next),
+            style = TextStyle(
+                fontSize = 16.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Medium
+            )
+        )
+    }
 }
