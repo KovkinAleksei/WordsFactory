@@ -2,7 +2,6 @@ package com.example.mobile_laboratoryproject2.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -21,7 +20,6 @@ import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 
-
 // Первая страница приветственного экрана
 @Composable
 fun OnBoardingFirstPage()
@@ -35,8 +33,6 @@ fun OnBoardingFirstPage()
             painter = painterResource(id = R.drawable.on_boarding_first_img),
             contentDescription = null
         )
-
-        Spacer(Modifier.weight(1f))
 
         Text(
             modifier = Modifier
@@ -54,7 +50,7 @@ fun OnBoardingFirstPage()
 
         Text(
             modifier = Modifier
-                .padding(16.dp, 8.dp, 16.dp, 40.dp),
+                .padding(16.dp, 8.dp, 16.dp, 38.dp),
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.quarantine),
             style = TextStyle(
@@ -63,8 +59,5 @@ fun OnBoardingFirstPage()
             ),
             lineHeight = 21.sp
         )
-
-        Pagination()
-        NextButton()
     }
 }
