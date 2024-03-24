@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.viewModel
+package com.example.mobile_laboratoryproject2.viewModel.OnBoardingScreen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

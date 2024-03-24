@@ -41,7 +41,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PaginationColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
-import com.example.mobile_laboratoryproject2.viewModel.OnBoardingViewModel
+import com.example.mobile_laboratoryproject2.viewModel.OnBoardingScreen.OnBoardingViewModel
 
 // Приветственный экран
 @OptIn(ExperimentalFoundationApi::class)

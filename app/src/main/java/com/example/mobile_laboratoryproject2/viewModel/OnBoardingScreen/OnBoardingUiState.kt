@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.viewModel
+package com.example.mobile_laboratoryproject2.viewModel.OnBoardingScreen
 
 data class OnBoardingUiState(
     val pagesCount: Int = 3,
