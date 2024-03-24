@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.view
+package com.example.mobile_laboratoryproject2.view.OnBoardingScreen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -34,7 +34,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.mobile_laboratoryproject2.R
+import com.example.mobile_laboratoryproject2.navigation.Destination
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PaginationColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
@@ -44,7 +46,10 @@ import com.example.mobile_laboratoryproject2.viewModel.OnBoardingViewModel
 // Приветственный экран
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen(vm: OnBoardingViewModel = viewModel())
+fun OnBoardingScreen(
+    navController: NavHostController,
+    vm: OnBoardingViewModel = viewModel()
+)
 {
     val uiState by vm.uiState.collectAsState()
 
@@ -55,7 +60,11 @@ fun OnBoardingScreen(vm: OnBoardingViewModel = viewModel())
                 .align(Alignment.End)
                 .padding(0.dp, 24.dp, 16.dp, 0.dp)
                 .clickable {
-                           vm.onSkipClick()
+                    navController.navigate(Destination.SignUpScreen.name) {
+                        popUpTo(Destination.OnBoardingScreen.name) {
+                            inclusive = true
+                        }
+                    }
                 },
             text = stringResource(id = R.string.skip),
             style = TextStyle(
@@ -94,7 +103,7 @@ fun OnBoardingScreen(vm: OnBoardingViewModel = viewModel())
         if (uiState.currentPage != uiState.pagesCount)
             NextButton()
         else
-            LetsStartButton()
+            LetsStartButton(navController)
     }
 }
 
@@ -178,7 +187,7 @@ fun NextButton(vm : OnBoardingViewModel = viewModel())
 
 // Кнопка перехода с приветственного экрана
 @Composable
-fun LetsStartButton(vm : OnBoardingViewModel = viewModel())
+fun LetsStartButton(navController: NavHostController)
 {
     Button(
         modifier = Modifier
@@ -191,7 +200,11 @@ fun LetsStartButton(vm : OnBoardingViewModel = viewModel())
             containerColor = PrimaryColor
         ),
         onClick = {
-            vm.onLetsStartClick()
+            navController.navigate(Destination.SignUpScreen.name) {
+                popUpTo(Destination.OnBoardingScreen.name) {
+                    inclusive = true
+                }
+            }
         }
     ) {
         Text(

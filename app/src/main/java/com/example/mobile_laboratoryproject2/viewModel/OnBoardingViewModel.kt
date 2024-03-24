@@ -28,16 +28,4 @@ class OnBoardingViewModel @Inject constructor(
             currentState.copy(currentPage = selectedPage)
         }
     }
-
-    // Переход с приветственного экрана
-    fun onLetsStartClick()
-    {
-        // TODO
-    }
-
-    // Пропуск приветственного экрана
-    fun onSkipClick()
-    {
-        // TODO
-    }
 }

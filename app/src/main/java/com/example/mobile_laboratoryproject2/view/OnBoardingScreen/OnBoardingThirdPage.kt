@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.view
+package com.example.mobile_laboratoryproject2.view.OnBoardingScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -20,9 +20,9 @@ import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 
-// Первая страница приветственного экрана
+// Третья страница приветственного экрана
 @Composable
-fun OnBoardingFirstPage()
+fun OnBoardingThirdPage()
 {
     Column {
         Image(
@@ -30,7 +30,7 @@ fun OnBoardingFirstPage()
                 .fillMaxWidth()
                 .padding(16.dp, 5.dp, 16.dp, 0.dp),
             contentScale = ContentScale.Crop,
-            painter = painterResource(id = R.drawable.on_boarding_first_img),
+            painter = painterResource(id = R.drawable.on_boarding_third_img),
             contentDescription = null
         )
 
@@ -39,7 +39,7 @@ fun OnBoardingFirstPage()
                 .align(Alignment.CenterHorizontally)
                 .padding(16.dp, 16.dp, 16.dp, 0.dp),
             textAlign = TextAlign.Center,
-            text = stringResource(id = R.string.learn_anywhere),
+            text = stringResource(id = R.string.improve_skills),
             style = TextStyle(
                 fontSize = 24.sp,
                 color = DarkColor,

@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.mobile_laboratoryproject2.navigation.Navigation
 import com.example.mobile_laboratoryproject2.ui.theme.MobileLaboratoryProject2Theme
-import com.example.mobile_laboratoryproject2.view.OnBoardingScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    OnBoardingScreen()
+                    Navigation()
                 }
             }
         }
