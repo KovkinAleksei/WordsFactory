@@ -1,8 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
-    id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
 }
 
@@ -12,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.mobile_laboratoryproject2"
-        minSdk = 31
+        minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -57,11 +55,10 @@ dependencies {
     //coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    //hilt
-    implementation("com.google.dagger:hilt-android:2.48.1")
-    implementation("androidx.compose.material3:material3-android:1.2.0")
-    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    //koin
+    implementation("io.insert-koin:koin-core:3.3.2")
+    implementation("io.insert-koin:koin-android:3.3.2")
+    implementation("io.insert-koin:koin-androidx-compose:3.4.1")
 
     //datePicker
     implementation("androidx.compose.material3:material3:1.2.0")

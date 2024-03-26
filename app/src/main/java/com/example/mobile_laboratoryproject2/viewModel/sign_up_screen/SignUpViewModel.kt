@@ -1,22 +1,16 @@
-package com.example.mobile_laboratoryproject2.viewModel.SignUpScreen
+package com.example.mobile_laboratoryproject2.viewModel.sign_up_screen
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.mobile_laboratoryproject2.model.domain.SignUpUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
 
-@HiltViewModel
-class SignUpViewModel @Inject constructor(
-   // private val signUpUseCase: SignUpUseCase
+class SignUpViewModel(
+    private val signUpUseCase: SignUpUseCase
 ) : ViewModel() {
-    private val signUpUseCase = SignUpUseCase()
 
     private val _uiState = MutableStateFlow(SignUpUiState())
     val uiState = _uiState.asStateFlow()

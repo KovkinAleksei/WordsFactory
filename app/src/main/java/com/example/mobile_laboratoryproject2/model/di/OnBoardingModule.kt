@@ -1,17 +1,11 @@
 package com.example.mobile_laboratoryproject2.model.di
 
-import com.example.mobile_laboratoryproject2.model.domain.SignUpUseCase
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import com.example.mobile_laboratoryproject2.viewModel.on_boarding_screen.OnBoardingViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(ViewModelComponent::class)
-class OnBoardingModule {
-
-    @Provides
-    fun provideSignUpUseCase(): SignUpUseCase {
-        return SignUpUseCase()
+val onBoardingModule = module {
+    viewModel<OnBoardingViewModel> {
+        OnBoardingViewModel()
     }
 }

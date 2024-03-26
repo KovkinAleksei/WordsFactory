@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.view.OnBoardingScreen
+package com.example.mobile_laboratoryproject2.view.on_boarding_screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -33,7 +33,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.navigation.Destination
@@ -41,14 +40,15 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PaginationColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
-import com.example.mobile_laboratoryproject2.viewModel.OnBoardingScreen.OnBoardingViewModel
+import com.example.mobile_laboratoryproject2.viewModel.on_boarding_screen.OnBoardingViewModel
+import org.koin.androidx.compose.koinViewModel
 
 // Приветственный экран
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingScreen(
     navController: NavHostController,
-    vm: OnBoardingViewModel = viewModel()
+    vm: OnBoardingViewModel = koinViewModel()
 )
 {
     val uiState by vm.uiState.collectAsState()
@@ -87,7 +87,10 @@ fun OnBoardingScreen(
             vm.onPagerScroll(pagerState.currentPage + 1)
         }
 
-        HorizontalPager(state = pagerState) { page ->
+        HorizontalPager(
+            modifier = Modifier.weight(1f),
+            state = pagerState
+        ) { page ->
             when(page) {
                 0 -> OnBoardingFirstPage()
                 1 -> OnBoardingSecondPage()
@@ -96,7 +99,6 @@ fun OnBoardingScreen(
         }
 
         // Индикатор текущей страницы
-        Spacer(Modifier.weight(1f))
         Pagination()
 
         // Кнопка продолжения
@@ -109,7 +111,7 @@ fun OnBoardingScreen(
 
 // Индикатор выбранной страницы
 @Composable
-fun Pagination(vm: OnBoardingViewModel = viewModel())
+fun Pagination(vm: OnBoardingViewModel = koinViewModel())
 {
     val uiState by vm.uiState.collectAsState()
 
@@ -158,8 +160,9 @@ fun UnselectedPage()
 
 // Кнопка перехода на следующую страницу
 @Composable
-fun NextButton(vm : OnBoardingViewModel = viewModel())
+fun NextButton(vm : OnBoardingViewModel = koinViewModel())
 {
+
     Button(
         modifier = Modifier
             .fillMaxWidth()

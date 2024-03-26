@@ -1,15 +1,11 @@
-package com.example.mobile_laboratoryproject2.viewModel.OnBoardingScreen
+package com.example.mobile_laboratoryproject2.viewModel.on_boarding_screen
 
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
 
-@HiltViewModel
-class OnBoardingViewModel @Inject constructor(
-): ViewModel() {
+class OnBoardingViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(OnBoardingUiState())
     val uiState = _uiState.asStateFlow()
 

@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.view.OnBoardingScreen
+package com.example.mobile_laboratoryproject2.view.on_boarding_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

@@ -2,7 +2,6 @@ package com.example.mobile_laboratoryproject2.model.domain
 
 import android.util.Patterns
 import com.example.mobile_laboratoryproject2.R
-import javax.inject.Inject
 
 class SignUpUseCase {
     // Валидация email, имени и пароля

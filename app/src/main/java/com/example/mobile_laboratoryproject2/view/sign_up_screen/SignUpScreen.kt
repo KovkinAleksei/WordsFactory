@@ -1,12 +1,9 @@
-package com.example.mobile_laboratoryproject2.view.SignUpScreen
+package com.example.mobile_laboratoryproject2.view.sign_up_screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -53,13 +50,16 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
-import com.example.mobile_laboratoryproject2.viewModel.SignUpScreen.SignUpErrorDialog
-import com.example.mobile_laboratoryproject2.viewModel.SignUpScreen.SignUpViewModel
+import com.example.mobile_laboratoryproject2.viewModel.on_boarding_screen.OnBoardingViewModel
+import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.SignUpErrorDialog
+import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.SignUpViewModel
+import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 // Экран регистрации
 @Composable
 fun SignUpScreen(
-    vm : SignUpViewModel = viewModel()
+    vm : SignUpViewModel = koinViewModel()
 )
 {
     val uiState by vm.uiState.collectAsState()
@@ -227,11 +227,12 @@ fun TextField(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordTextField(
-    vm: SignUpViewModel = viewModel(),
+    vm: SignUpViewModel = koinViewModel(),
     textFieldValue: MutableState<TextFieldValue>,
     handleInput: (TextFieldValue) -> Unit,
     placeholderText: String
 ) {
+
     val uiState by vm.uiState.collectAsState()
     val interactionSource = remember { MutableInteractionSource() }
 

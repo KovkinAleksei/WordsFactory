@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.view.OnBoardingScreen
+package com.example.mobile_laboratoryproject2.view.on_boarding_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -20,9 +20,9 @@ import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 
-// Вторая страница приветственного экрана
+// Первая страница приветственного экрана
 @Composable
-fun OnBoardingSecondPage()
+fun OnBoardingFirstPage()
 {
     Column {
         Image(
@@ -30,7 +30,7 @@ fun OnBoardingSecondPage()
                 .fillMaxWidth()
                 .padding(16.dp, 5.dp, 16.dp, 0.dp),
             contentScale = ContentScale.Crop,
-            painter = painterResource(id = R.drawable.on_boarding_second_img),
+            painter = painterResource(id = R.drawable.on_boarding_first_img),
             contentDescription = null
         )
 
@@ -39,7 +39,7 @@ fun OnBoardingSecondPage()
                 .align(Alignment.CenterHorizontally)
                 .padding(16.dp, 16.dp, 16.dp, 0.dp),
             textAlign = TextAlign.Center,
-            text = stringResource(id = R.string.find_course),
+            text = stringResource(id = R.string.learn_anywhere),
             style = TextStyle(
                 fontSize = 24.sp,
                 color = DarkColor,
