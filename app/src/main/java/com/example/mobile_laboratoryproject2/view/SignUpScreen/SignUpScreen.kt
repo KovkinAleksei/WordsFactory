@@ -53,6 +53,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
+import com.example.mobile_laboratoryproject2.viewModel.SignUpScreen.SignUpErrorDialog
 import com.example.mobile_laboratoryproject2.viewModel.SignUpScreen.SignUpViewModel
 
 // Экран регистрации
@@ -61,6 +62,7 @@ fun SignUpScreen(
     vm : SignUpViewModel = viewModel()
 )
 {
+    val uiState by vm.uiState.collectAsState()
     val scroll = rememberScrollState()
 
     Column(
@@ -76,7 +78,6 @@ fun SignUpScreen(
             contentDescription = null
         )
 
-       // Spacer(Modifier.weight(1f))
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -126,6 +127,7 @@ fun SignUpScreen(
         )
 
         Spacer(Modifier.weight(1f))
+
         // Кнопка регистрации
         Button(
             modifier = Modifier
@@ -136,7 +138,9 @@ fun SignUpScreen(
             colors = ButtonDefaults.buttonColors(
                 containerColor = PrimaryColor
             ),
-            onClick = { /*TODO*/ }
+            onClick = {
+                vm.onSignUpButtonClick()
+            }
         ) {
             Text(
                 modifier = Modifier
@@ -147,6 +151,13 @@ fun SignUpScreen(
                     color = Color.White,
                     fontWeight = FontWeight.Medium
                 )
+            )
+        }
+
+        if (!uiState.areFieldValuesCorrect) {
+            SignUpErrorDialog(
+                errorMessage = uiState.errorMessage,
+                onDismiss = { vm.onDismiss() }
             )
         }
     }
@@ -161,6 +172,8 @@ fun TextField(
     placeholderText: String
 )
 {
+    val interactionSource = remember { MutableInteractionSource() }
+
     BasicTextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -170,6 +183,7 @@ fun TextField(
             handleInput(it)
         },
         singleLine = true,
+        interactionSource = interactionSource,
         decorationBox = { innerTextField ->
             TextFieldDefaults.DecorationBox(
                 value = textFieldValue.value.text,
@@ -177,8 +191,8 @@ fun TextField(
                 enabled = true,
                 singleLine = true,
                 visualTransformation = VisualTransformation.None,
-                interactionSource = remember { MutableInteractionSource() },
-                placeholder = {
+                interactionSource = interactionSource,
+                label = {
                     Text(
                         text = placeholderText,
                         style = TextStyle(
@@ -219,6 +233,7 @@ fun PasswordTextField(
     placeholderText: String
 ) {
     val uiState by vm.uiState.collectAsState()
+    val interactionSource = remember { MutableInteractionSource() }
 
     BasicTextField(
         modifier = Modifier
@@ -229,6 +244,7 @@ fun PasswordTextField(
             handleInput(it)
         },
         singleLine = true,
+        interactionSource = interactionSource,
         visualTransformation =
             if (uiState.isHiddenPassword)
                 PasswordVisualTransformation()
@@ -241,8 +257,8 @@ fun PasswordTextField(
                 enabled = true,
                 singleLine = true,
                 visualTransformation = VisualTransformation.None,
-                interactionSource = remember { MutableInteractionSource() },
-                placeholder = {
+                interactionSource = interactionSource,
+                label = {
                     Text(
                         text = placeholderText,
                         style = TextStyle(
@@ -301,5 +317,4 @@ fun SignUpPreview()
     {
         SignUpScreen()
     }
-
 }

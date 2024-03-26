@@ -12,4 +12,10 @@
     <string name="name_placeholder">Name</string>
     <string name="email_placeholder">E-mail</string>
     <string name="password_placeholder">Password</string>
+    <string name="ok">Ok</string>
+    <string name="name_is_empty">Name field is empty</string>
+    <string name="email_is_empty">Email field is empty</string>
+    <string name="invalid_email">Email is invalid</string>
+    <string name="password_is_empty">Password field is empty</string>
+    <string name="password_is_short">Password must contain at least 6 symbols</string>
 </resources>
