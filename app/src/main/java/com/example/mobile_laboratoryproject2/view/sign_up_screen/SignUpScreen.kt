@@ -1,7 +1,6 @@
 package com.example.mobile_laboratoryproject2.view.sign_up_screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,10 +40,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.navigation.Destination
@@ -54,10 +50,8 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.sourceColor
-import com.example.mobile_laboratoryproject2.viewModel.on_boarding_screen.OnBoardingViewModel
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.SignUpErrorDialog
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.SignUpViewModel
-import org.koin.androidx.compose.getViewModel
 import org.koin.androidx.compose.koinViewModel
 
 // Экран регистрации
@@ -87,7 +81,7 @@ fun SignUpScreen(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(0.dp, 16.dp, 0.dp, 0.dp),
-            text = stringResource(id = R.string.sign_up),
+            text = stringResource(id = R.string.sign_up_header),
             style = TextStyle(
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Medium,
@@ -114,7 +108,9 @@ fun SignUpScreen(
                     .padding(4.dp, 8.dp, 0.dp, 0.dp)
                     .clickable {
                            navController.navigate(Destination.LoginScreen.name) {
-                               popUpTo(Destination.SignUpScreen.name)
+                               popUpTo(Destination.SignUpScreen.name) {
+                                   inclusive = true
+                               }
                            }
                     },
                 text = stringResource(id = R.string.sign_in),
@@ -169,7 +165,7 @@ fun SignUpScreen(
             Text(
                 modifier = Modifier
                     .align(Alignment.CenterVertically),
-                text = stringResource(id = R.string.sign_up),
+                text = stringResource(id = R.string.sign_up_header),
                 style = TextStyle(
                     fontSize = 16.sp,
                     color = Color.White,

@@ -7,7 +7,7 @@
     <string name="find_course">Find a course\nfor you</string>
     <string name="improve_skills">\nImprove your skills</string>
     <string name="lets_start">Let\'s Start</string>
-    <string name="sign_up">Sign up</string>
+    <string name="sign_up_header">Sign up</string>
     <string name="create_account">Create your account or</string>
     <string name="name_placeholder">Name</string>
     <string name="email_placeholder">E-mail</string>
@@ -20,4 +20,7 @@
     <string name="password_is_short">Password must contain at least 6 symbols</string>
     <string name="email_is_taken">Email is already taken</string>
     <string name="sign_in">sign  in</string>
+    <string name="sign_in_to_account">Sign  in to your account</string>
+    <string name="sign_up">sign  up</string>
+    <string name="sign_in_header">Sign  in</string>
 </resources>
