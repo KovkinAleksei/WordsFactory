@@ -46,11 +46,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.mobile_laboratoryproject2.R
+import com.example.mobile_laboratoryproject2.navigation.Destination
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
+import com.example.mobile_laboratoryproject2.ui.theme.sourceColor
 import com.example.mobile_laboratoryproject2.viewModel.on_boarding_screen.OnBoardingViewModel
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.SignUpErrorDialog
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.SignUpViewModel
@@ -60,6 +63,7 @@ import org.koin.androidx.compose.koinViewModel
 // Экран регистрации
 @Composable
 fun SignUpScreen(
+    navController: NavHostController,
     vm : SignUpViewModel = koinViewModel()
 )
 {
@@ -91,16 +95,35 @@ fun SignUpScreen(
             )
         )
 
-        Text(
+        Row(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(0.dp, 8.dp, 0.dp, 0.dp),
-            text = stringResource(id = R.string.create_account),
-            style = TextStyle(
-                fontSize = 14.sp,
-                color = DarkGrayColor
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(0.dp, 8.dp, 0.dp, 0.dp),
+                text = stringResource(id = R.string.create_account),
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    color = DarkGrayColor
+                )
             )
-        )
+
+            Text(
+                modifier = Modifier
+                    .padding(4.dp, 8.dp, 0.dp, 0.dp)
+                    .clickable {
+                           navController.navigate(Destination.LoginScreen.name) {
+                               popUpTo(Destination.SignUpScreen.name)
+                           }
+                    },
+                text = stringResource(id = R.string.sign_in),
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    color = sourceColor
+                )
+            )
+        }
 
         // Поля ввода данных для регистрации
         TextField(
