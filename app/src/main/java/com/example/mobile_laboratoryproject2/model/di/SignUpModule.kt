@@ -1,7 +1,7 @@
 package com.example.mobile_laboratoryproject2.model.di
 
-import com.example.mobile_laboratoryproject2.model.domain.data.AppDatabase
-import com.example.mobile_laboratoryproject2.model.domain.repository.SignUpRepository
+import com.example.mobile_laboratoryproject2.model.data.database.AppDatabase
+import com.example.mobile_laboratoryproject2.model.data.repositories.SignUpRepository
 import com.example.mobile_laboratoryproject2.model.domain.use_cases.SignUpUseCase
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.SignUpViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel

@@ -3,7 +3,7 @@ package com.example.mobile_laboratoryproject2.model.domain.use_cases
 import android.util.Patterns
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
-import com.example.mobile_laboratoryproject2.model.domain.repository.SignUpRepository
+import com.example.mobile_laboratoryproject2.model.data.repositories.SignUpRepository
 
 class SignUpUseCase(
     private val signUpRepository: SignUpRepository

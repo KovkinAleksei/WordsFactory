@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.model.domain.data
+package com.example.mobile_laboratoryproject2.model.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert
