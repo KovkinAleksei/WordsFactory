@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
@@ -284,14 +285,15 @@ fun PasswordTextField(
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
                                 .padding(0.dp, 0.dp, 16.dp, 0.dp)
+                                .clip(CircleShape)
                                 .clickable {
                                     vm.onHideButtonClick()
                                 },
                             imageVector =
                                 if (uiState.isHiddenPassword)
-                                    ImageVector.vectorResource(R.drawable.opened_eye)
+                                    ImageVector.vectorResource(R.drawable.closed_eye)
                                 else
-                                    ImageVector.vectorResource(R.drawable.closed_eye),
+                                    ImageVector.vectorResource(R.drawable.opened_eye),
                             contentDescription = null
                         )
                     }
@@ -304,18 +306,4 @@ fun PasswordTextField(
             fontWeight = FontWeight.Medium
         )
     )
-}
-
-@Preview
-@Composable
-fun SignUpPreview()
-{
-    Box(
-        modifier = Modifier
-            .background(Color.White)
-            .size(360.dp, 616.dp)
-    )
-    {
-        SignUpScreen()
-    }
 }

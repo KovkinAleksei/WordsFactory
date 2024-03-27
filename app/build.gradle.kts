@@ -1,6 +1,8 @@
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
 }
 
@@ -18,6 +20,9 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+        kapt {
+            arguments {arg("room.schemaLocation", "$projectDir/schemas")}
         }
     }
 
@@ -59,6 +64,11 @@ dependencies {
     implementation("io.insert-koin:koin-core:3.3.2")
     implementation("io.insert-koin:koin-android:3.3.2")
     implementation("io.insert-koin:koin-androidx-compose:3.4.1")
+
+    // room
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 
     //datePicker
     implementation("androidx.compose.material3:material3:1.2.0")

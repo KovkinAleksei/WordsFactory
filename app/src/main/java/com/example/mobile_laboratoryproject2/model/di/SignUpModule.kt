@@ -1,18 +1,23 @@
 package com.example.mobile_laboratoryproject2.model.di
 
-import com.example.mobile_laboratoryproject2.model.domain.SignUpUseCase
-import com.example.mobile_laboratoryproject2.viewModel.on_boarding_screen.OnBoardingViewModel
+import com.example.mobile_laboratoryproject2.model.domain.data.AppDatabase
+import com.example.mobile_laboratoryproject2.model.domain.repository.SignUpRepository
+import com.example.mobile_laboratoryproject2.model.domain.use_cases.SignUpUseCase
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.SignUpViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val signUpModule = module {
-    factory<SignUpUseCase> {
-        SignUpUseCase()
+    single<AppDatabase> {
+        AppDatabase.createDatabase(get())
     }
 
-    viewModel<OnBoardingViewModel> {
-        OnBoardingViewModel()
+    factory<SignUpRepository> {
+        SignUpRepository(database = get())
+    }
+
+    factory<SignUpUseCase> {
+        SignUpUseCase(signUpRepository = get())
     }
 
     viewModel<SignUpViewModel> {

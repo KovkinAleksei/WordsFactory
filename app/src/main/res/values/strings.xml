@@ -18,4 +18,5 @@
     <string name="invalid_email">Email is invalid</string>
     <string name="password_is_empty">Password field is empty</string>
     <string name="password_is_short">Password must contain at least 6 symbols</string>
+    <string name="email_is_taken">Email is already taken</string>
 </resources>

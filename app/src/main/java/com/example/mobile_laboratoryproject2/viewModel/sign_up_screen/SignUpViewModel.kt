@@ -3,10 +3,15 @@ package com.example.mobile_laboratoryproject2.viewModel.sign_up_screen
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
-import com.example.mobile_laboratoryproject2.model.domain.SignUpUseCase
+import androidx.lifecycle.viewModelScope
+import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
+import com.example.mobile_laboratoryproject2.model.domain.use_cases.SignUpUseCase
+import com.example.mobile_laboratoryproject2.model.domain.use_cases.UserDto
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class SignUpViewModel(
     private val signUpUseCase: SignUpUseCase
@@ -43,13 +48,26 @@ class SignUpViewModel(
 
     // Регистрация
     fun onSignUpButtonClick() {
-        _uiState.update { currentState ->
-            val validationResult = signUpUseCase.validateFieldValues(
-                email.value.text,
-                name.value.text,
-                password.value.text
-            )
+        val user = UserDto(
+            name.value.text,
+            email.value.text,
+            password.value.text
+        )
 
+        // Валидация введённых полей
+        updateValidationState(signUpUseCase.validateFieldValues(user))
+
+        // Регистрация пользователя
+        viewModelScope.launch(Dispatchers.IO) {
+            if (_uiState.value.areFieldValuesCorrect){
+                updateValidationState(signUpUseCase.registerUser(user))
+            }
+        }
+    }
+
+    // Получение сообщения об ошибке
+    private fun updateValidationState(validationResult: ValidationResult) {
+        _uiState.update { currentState ->
             currentState.copy(
                 areFieldValuesCorrect = validationResult.isCorrect,
                 errorMessage = validationResult.errorMessage
