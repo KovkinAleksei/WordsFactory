@@ -62,8 +62,14 @@ class SignUpViewModel(
 
         // Регистрация пользователя
         viewModelScope.launch(Dispatchers.IO) {
-            if (_uiState.value.areFieldValuesCorrect){
+            if (_uiState.value.areFieldValuesCorrect) {
                 updateValidationState(signUpUseCase.registerUser(user))
+            }
+
+            if (_uiState.value.areFieldValuesCorrect) {
+                _uiState.update {currentState ->
+                    currentState.copy(isSignedUp = true)
+                }
             }
         }
     }

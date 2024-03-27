@@ -49,8 +49,15 @@ class LoginViewModel(
         updateValidationState(loginUseCase.validateFieldValues(loginCredentials))
 
         viewModelScope.launch(Dispatchers.IO) {
-            if (_uiState.value.areFieldValuesCorrect)
+            if (_uiState.value.areFieldValuesCorrect) {
                 updateValidationState(loginUseCase.login(loginCredentials))
+            }
+
+            if (_uiState.value.areFieldValuesCorrect) {
+                _uiState.update {currentState ->
+                    currentState.copy(isLoggedIn = true)
+                }
+            }
         }
     }
 

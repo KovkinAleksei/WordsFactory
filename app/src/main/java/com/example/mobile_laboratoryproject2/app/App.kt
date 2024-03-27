@@ -1,6 +1,7 @@
 package com.example.mobile_laboratoryproject2.app
 
 import android.app.Application
+import com.example.mobile_laboratoryproject2.model.di.dictionaryModule
 import com.example.mobile_laboratoryproject2.model.di.loginModule
 import com.example.mobile_laboratoryproject2.model.di.onBoardingModule
 import com.example.mobile_laboratoryproject2.model.di.signUpModule
@@ -20,7 +21,8 @@ class App : Application() {
                 listOf(
                     signUpModule,
                     onBoardingModule,
-                    loginModule
+                    loginModule,
+                    dictionaryModule
                 )
             )
         }

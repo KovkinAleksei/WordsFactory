@@ -64,6 +64,13 @@ fun SignUpScreen(
     val uiState by vm.uiState.collectAsState()
     val scroll = rememberScrollState()
 
+    if (uiState.isSignedUp)
+        navController.navigate(Destination.DictionaryScreen.name) {
+            popUpTo(Destination.SignUpScreen.name) {
+                inclusive = true
+            }
+        }
+
     Column(
         modifier = Modifier.verticalScroll(scroll)
     ) {

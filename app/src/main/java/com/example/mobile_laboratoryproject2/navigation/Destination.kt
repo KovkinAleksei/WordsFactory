@@ -4,5 +4,6 @@ package com.example.mobile_laboratoryproject2.navigation
 enum class Destination {
     OnBoardingScreen,
     SignUpScreen,
-    LoginScreen
+    LoginScreen,
+    DictionaryScreen
 }

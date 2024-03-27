@@ -47,6 +47,13 @@ fun LoginScreen(
 {
     val uiState by vm.uiState.collectAsState()
 
+    if (uiState.isLoggedIn)
+        navController.navigate(Destination.DictionaryScreen.name) {
+            popUpTo(Destination.LoginScreen.name) {
+                inclusive = true
+            }
+        }
+
     Column {
         Image(
             modifier = Modifier

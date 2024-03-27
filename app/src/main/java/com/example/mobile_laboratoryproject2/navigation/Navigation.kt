@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.mobile_laboratoryproject2.view.dictionary_screen.DictionaryScreen
 import com.example.mobile_laboratoryproject2.view.login_screen.LoginScreen
 import com.example.mobile_laboratoryproject2.view.on_boarding_screen.OnBoardingScreen
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.SignUpScreen
@@ -27,6 +28,10 @@ fun Navigation()
 
         composable(Destination.LoginScreen.name) {
             LoginScreen(navController)
+        }
+
+        composable(Destination.DictionaryScreen.name) {
+            DictionaryScreen(navController)
         }
     }
 }
