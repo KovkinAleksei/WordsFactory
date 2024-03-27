@@ -2,7 +2,7 @@ package com.example.mobile_laboratoryproject2.model.data.repositories
 
 import com.example.mobile_laboratoryproject2.model.data.database.AppDatabase
 import com.example.mobile_laboratoryproject2.model.domain.entities.UserEntity
-import com.example.mobile_laboratoryproject2.model.domain.use_cases.UserDto
+import com.example.mobile_laboratoryproject2.model.domain.use_cases.sign_up_screen.UserDto
 
 class SignUpRepository(
     private val database: AppDatabase

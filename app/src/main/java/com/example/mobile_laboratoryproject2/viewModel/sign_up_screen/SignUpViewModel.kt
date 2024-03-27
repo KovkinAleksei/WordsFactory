@@ -5,8 +5,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
-import com.example.mobile_laboratoryproject2.model.domain.use_cases.SignUpUseCase
-import com.example.mobile_laboratoryproject2.model.domain.use_cases.UserDto
+import com.example.mobile_laboratoryproject2.model.domain.use_cases.sign_up_screen.SignUpUseCase
+import com.example.mobile_laboratoryproject2.model.domain.use_cases.sign_up_screen.UserDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

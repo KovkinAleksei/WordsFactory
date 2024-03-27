@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.model.domain.use_cases
+package com.example.mobile_laboratoryproject2.model.domain.use_cases.sign_up_screen
 
 import android.util.Patterns
 import com.example.mobile_laboratoryproject2.R

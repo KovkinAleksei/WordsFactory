@@ -4,11 +4,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
+import com.example.mobile_laboratoryproject2.model.domain.use_cases.login_screen.LoginCredentials
+import com.example.mobile_laboratoryproject2.model.domain.use_cases.login_screen.LoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(
+    private val loginUseCase: LoginUseCase
+) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -34,7 +38,12 @@ class LoginViewModel : ViewModel() {
 
     // Авторизация
     fun onSignInButtonClick() {
+        val loginCredentials = LoginCredentials(
+            email = email.value.text,
+            password = password.value.text
+        )
 
+        updateValidationState(loginUseCase.validateFieldValues(loginCredentials))
     }
 
     // Получение сообщения об ошибке
