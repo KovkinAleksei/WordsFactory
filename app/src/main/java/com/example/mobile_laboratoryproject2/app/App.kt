@@ -1,8 +1,10 @@
 package com.example.mobile_laboratoryproject2.app
 
 import android.app.Application
+import com.example.mobile_laboratoryproject2.model.di.databaseModule
 import com.example.mobile_laboratoryproject2.model.di.dictionaryModule
 import com.example.mobile_laboratoryproject2.model.di.loginModule
+import com.example.mobile_laboratoryproject2.model.di.networkModule
 import com.example.mobile_laboratoryproject2.model.di.onBoardingModule
 import com.example.mobile_laboratoryproject2.model.di.signUpModule
 import org.koin.android.ext.koin.androidContext
@@ -22,7 +24,9 @@ class App : Application() {
                     signUpModule,
                     onBoardingModule,
                     loginModule,
-                    dictionaryModule
+                    dictionaryModule,
+                    databaseModule,
+                    networkModule
                 )
             )
         }

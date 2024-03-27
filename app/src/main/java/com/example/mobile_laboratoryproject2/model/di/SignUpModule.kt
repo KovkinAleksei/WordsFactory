@@ -10,15 +10,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val signUpModule = module {
-    single<AppDatabase> {
-        AppDatabase.createDatabase(get())
-    }
-
-    single<UserDao> {
-        val database = get<AppDatabase>()
-        database.userDao
-    }
-
     factory<ISignUpRepository> {
         SignUpRepositoryImpl(get())
     }
