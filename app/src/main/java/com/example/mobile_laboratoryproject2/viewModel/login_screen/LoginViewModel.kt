@@ -3,12 +3,15 @@ package com.example.mobile_laboratoryproject2.viewModel.login_screen
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
 import com.example.mobile_laboratoryproject2.model.domain.use_cases.login_screen.LoginCredentials
 import com.example.mobile_laboratoryproject2.model.domain.use_cases.login_screen.LoginUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase
@@ -44,6 +47,11 @@ class LoginViewModel(
         )
 
         updateValidationState(loginUseCase.validateFieldValues(loginCredentials))
+
+        viewModelScope.launch(Dispatchers.IO) {
+            if (_uiState.value.areFieldValuesCorrect)
+                updateValidationState(loginUseCase.login(loginCredentials))
+        }
     }
 
     // Получение сообщения об ошибке

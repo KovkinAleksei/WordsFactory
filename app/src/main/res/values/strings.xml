@@ -23,4 +23,5 @@
     <string name="sign_in_to_account">Sign  in to your account</string>
     <string name="sign_up">sign  up</string>
     <string name="sign_in_header">Sign  in</string>
+    <string name="invalid_email_password">Invalid email or password</string>
 </resources>

@@ -3,17 +3,17 @@ package com.example.mobile_laboratoryproject2.model.domain.use_cases.sign_up_scr
 import android.util.Patterns
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
-import com.example.mobile_laboratoryproject2.model.data.repositories.SignUpRepository
+import com.example.mobile_laboratoryproject2.model.data.repositories.SignUpRepositoryImpl
 
 class SignUpUseCase(
-    private val signUpRepository: SignUpRepository
+    private val signUpRepositoryImpl: ISignUpRepository
 ) {
     // Регистрация пользователя
     suspend fun registerUser(user: UserDto): ValidationResult {
-        val isEmailTaken = signUpRepository.isEmailTaken(user.email)
+        val isEmailTaken = signUpRepositoryImpl.isEmailTaken(user.email)
 
         if (!isEmailTaken) {
-            signUpRepository.registerUser(user)
+            signUpRepositoryImpl.registerUser(user)
             return ValidationResult(true, R.string.ok)
         }
 

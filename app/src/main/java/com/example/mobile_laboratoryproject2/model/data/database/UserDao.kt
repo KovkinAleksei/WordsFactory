@@ -7,9 +7,15 @@ import com.example.mobile_laboratoryproject2.model.domain.entities.UserEntity
 
 @Dao
 interface UserDao {
+    // Добавление нового пользователя в таблицу
     @Insert
     suspend fun insertUser(user: UserEntity)
 
-    @Query("SELECT EXISTS(SELECT * FROM Users WHERE email = :userEmail)")
-    suspend fun isEmailTaken(userEmail: String) : Boolean
+    // Нахождение существующего email
+    @Query("SELECT EXISTS(SELECT * FROM Users WHERE email = :email)")
+    suspend fun isEmailTaken(email: String) : Boolean
+
+    // Авторизация пользователя
+    @Query("SELECT id FROM Users WHERE email = :email AND password = :password")
+    suspend fun login(email: String, password: String) : List<Int>
 }
