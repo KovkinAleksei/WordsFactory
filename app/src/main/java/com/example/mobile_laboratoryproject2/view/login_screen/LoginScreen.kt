@@ -32,7 +32,7 @@ import com.example.mobile_laboratoryproject2.navigation.Destination
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
-import com.example.mobile_laboratoryproject2.ui.theme.sourceColor
+import com.example.mobile_laboratoryproject2.ui.theme.SourceColor
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.PasswordTextField
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.TextField
 import com.example.mobile_laboratoryproject2.viewModel.login_screen.LoginViewModel
@@ -104,7 +104,7 @@ fun LoginScreen(
                 text = stringResource(id = R.string.sign_up),
                 style = TextStyle(
                     fontSize = 14.sp,
-                    color = sourceColor
+                    color = SourceColor
                 )
             )
         }

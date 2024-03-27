@@ -16,7 +16,8 @@ fun Navigation()
 
     NavHost(
         navController = navController,
-        startDestination = Destination.OnBoardingScreen.name
+    //    startDestination = Destination.OnBoardingScreen.name
+        startDestination = Destination.DictionaryScreen.name
     ) {
         composable(Destination.OnBoardingScreen.name) {
             OnBoardingScreen(navController)

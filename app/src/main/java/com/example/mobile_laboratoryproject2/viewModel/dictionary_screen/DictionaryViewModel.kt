@@ -14,7 +14,13 @@ class DictionaryViewModel(
 
     val searchText = mutableStateOf(TextFieldValue(""))
 
-    fun onSearchTextChanged() {
+    // Ввод текста в поле поиска
+    fun handleSearchInput(input: TextFieldValue) {
+        searchText.value = input
+    }
+
+    // Поиск
+    fun onSearchButtonClick() {
 
     }
 }

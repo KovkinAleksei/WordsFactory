@@ -20,8 +20,10 @@
     <string name="password_is_short">Password must contain at least 6 symbols</string>
     <string name="email_is_taken">Email is already taken</string>
     <string name="sign_in">sign  in</string>
-    <string name="sign_in_to_account">Sign  in to your account</string>
+    <string name="sign_in_to_account">Sign  in to your account or</string>
     <string name="sign_up">sign  up</string>
     <string name="sign_in_header">Sign  in</string>
     <string name="invalid_email_password">Invalid email or password</string>
+    <string name="no_word">No word</string>
+    <string name="input_something">Input something to find it in dictionary</string>
 </resources>
