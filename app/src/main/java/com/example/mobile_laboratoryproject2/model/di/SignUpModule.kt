@@ -20,14 +20,14 @@ val signUpModule = module {
     }
 
     factory<ISignUpRepository> {
-        SignUpRepositoryImpl(database = get())
+        SignUpRepositoryImpl(get())
     }
 
     factory<SignUpUseCase> {
-        SignUpUseCase(signUpRepositoryImpl = get())
+        SignUpUseCase(get())
     }
 
     viewModel<SignUpViewModel> {
-        SignUpViewModel(signUpUseCase = get())
+        SignUpViewModel(get())
     }
 }

@@ -4,24 +4,25 @@ import android.util.Patterns
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.model.data.repositories.LoginRepositoryImpl
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 
 class LoginUseCase(
-    private val loginRepositoryImpl: ILoginRepository
+    private val firebaseAuth: FirebaseAuth
 ) {
     // Авторизация
     suspend fun login(loginCredentials: LoginCredentials): ValidationResult {
-        val userId = loginRepositoryImpl.login(loginCredentials)
+        try{
+            firebaseAuth.signInWithEmailAndPassword(loginCredentials.email, loginCredentials.password).await()
+        }
+        catch (e: FirebaseAuthInvalidCredentialsException){
+            return ValidationResult(false, R.string.invalid_email_password)
+        }
 
-        return if (userId.isEmpty())
-            ValidationResult(
-                false,
-                R.string.invalid_email_password
-            )
-        else
-            ValidationResult(
-                true,
-                R.string.ok
-            )
+        return ValidationResult(true, R.string.ok)
     }
 
     // Валидация email и пароля

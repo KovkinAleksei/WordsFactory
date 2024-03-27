@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1014714723979",
+    "project_id": "wordsfactory-df076",
+    "storage_bucket": "wordsfactory-df076.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014714723979:android:e58568df65bbbaa9e42e8e",
+        "android_client_info": {
+          "package_name": "com.example.mobile_laboratoryproject2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRfFAdydSq64bC7cUVd4lQ1GRWJluiwIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

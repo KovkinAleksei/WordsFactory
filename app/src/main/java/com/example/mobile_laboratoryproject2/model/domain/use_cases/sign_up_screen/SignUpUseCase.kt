@@ -4,20 +4,29 @@ import android.util.Patterns
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
 import com.example.mobile_laboratoryproject2.model.data.repositories.SignUpRepositoryImpl
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 
 class SignUpUseCase(
-    private val signUpRepositoryImpl: ISignUpRepository
+    private val firebaseAuth: FirebaseAuth
 ) {
     // Регистрация пользователя
     suspend fun registerUser(user: UserDto): ValidationResult {
-        val isEmailTaken = signUpRepositoryImpl.isEmailTaken(user.email)
-
-        if (!isEmailTaken) {
-            signUpRepositoryImpl.registerUser(user)
-            return ValidationResult(true, R.string.ok)
+        try{
+            firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
+        }
+        catch (e: FirebaseAuthUserCollisionException) {
+            return ValidationResult(false, R.string.email_is_taken)
+        }
+        catch (e: FirebaseAuthInvalidCredentialsException) {
+            return ValidationResult(false, R.string.invalid_email)
         }
 
-        return ValidationResult(false, R.string.email_is_taken)
+        return ValidationResult(true, R.string.ok)
     }
 
     // Валидация email, имени и пароля

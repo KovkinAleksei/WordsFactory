@@ -7,11 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
 import com.example.mobile_laboratoryproject2.model.domain.use_cases.sign_up_screen.SignUpUseCase
 import com.example.mobile_laboratoryproject2.model.domain.use_cases.sign_up_screen.UserDto
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class SignUpViewModel(
     private val signUpUseCase: SignUpUseCase
