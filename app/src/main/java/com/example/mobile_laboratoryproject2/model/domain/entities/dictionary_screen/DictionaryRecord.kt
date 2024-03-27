@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DictionaryRecord(
-    val word: String,
-    val phonetic: String,
+    var word: String,
+    val phonetic: String? = null,
     val phonetics: List<Phonetics>,
     val meanings: List<Meaning>,
     val license: License,
