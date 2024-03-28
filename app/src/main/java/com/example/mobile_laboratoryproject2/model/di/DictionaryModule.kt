@@ -16,7 +16,7 @@ val dictionaryModule = module {
     }
 
     factory<IDictionaryRepository> {
-        DictionaryRepositoryImpl(get())
+        DictionaryRepositoryImpl(get(), get())
     }
 
     factory<DictionaryUseCase> {

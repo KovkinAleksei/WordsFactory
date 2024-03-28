@@ -1,27 +1,39 @@
 package com.example.mobile_laboratoryproject2.model.domain.use_cases.dictionary_screen
 
-import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.Definition
-import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.DictionaryRecord
+import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.DictionaryMapper
+import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.usable_models.WordModel
 
 class DictionaryUseCase(
     private val dictionaryRepository: IDictionaryRepository
 ) {
-    // Получение всех определений слова
-    fun getAllDefinitions(word: DictionaryRecord): List<Definition> {
-        val definitions = mutableListOf<Definition>()
+    // Сохранение слова локально
+    suspend fun addToDictionary(word: WordModel) {
+        if (isAlreadyAdded(word))
+            return
 
-        word.meanings.forEach {
-            definitions.addAll(it.definitions)
-        }
+        val wordEntity = DictionaryMapper.wordModelToWordEntity(word)
+        dictionaryRepository.addToDictionary(wordEntity)
 
-        return definitions
+        addDefinitionsToDictionary(word)
     }
 
-    suspend fun getDictionaryRecord(word: String) : List<DictionaryRecord> {
-        var records = dictionaryRepository.getDictionaryRecord(word.lowercase())
-        records[0].word = records[0].word.replaceFirstChar { it.uppercase() }
-        records[0].meanings[0].partOfSpeech = records[0].meanings[0].partOfSpeech.replaceFirstChar { it.uppercase() }
+    // Проверка повторного добавления слова в словарь
+    private suspend fun isAlreadyAdded(word: WordModel): Boolean {
+        return dictionaryRepository.getWordId(word.word) != null
+    }
 
-        return records
+    // Сохранение определений слова локально
+    private suspend fun addDefinitionsToDictionary(word: WordModel) {
+        val wordId = dictionaryRepository.getWordId(word.word)
+        val definitionEntities = DictionaryMapper.wordModelToDefinitionEntities(word, wordId)
+
+        dictionaryRepository.addDefinitions(definitionEntities)
+    }
+
+    // Получение значений слова
+    suspend fun getDictionaryRecord(word: String) : WordModel {
+        var records = dictionaryRepository.getDictionaryRecord(word.lowercase())
+
+        return DictionaryMapper.dictionaryRecordToWordModel(records[0])
     }
 }

@@ -1,5 +1,6 @@
-package com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen
+package com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.api_response
 
+import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.api_response.Definition
 import kotlinx.serialization.Serializable
 
 @Serializable

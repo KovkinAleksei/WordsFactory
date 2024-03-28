@@ -3,7 +3,6 @@ package com.example.mobile_laboratoryproject2.view.dictionary_screen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,8 +33,10 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.Definition
-import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.DictionaryRecord
+import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.api_response.Definition
+import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.api_response.DictionaryRecord
+import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.usable_models.DefinitionModel
+import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.usable_models.WordModel
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
@@ -44,7 +45,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun WordInfo(word: DictionaryRecord) {
+fun WordInfo(word: WordModel) {
 
     Scaffold(
         bottomBar = {
@@ -61,7 +62,7 @@ fun WordInfo(word: DictionaryRecord) {
 
 // Заголовок информации о слове
 @Composable
-fun WordHeader(word: DictionaryRecord) {
+fun WordHeader(word: WordModel) {
     Row {
         Text(
             modifier = Modifier
@@ -77,7 +78,7 @@ fun WordHeader(word: DictionaryRecord) {
         Text(
             modifier = Modifier
                 .padding(16.dp, 25.dp, 0.dp, 0.dp),
-            text = word.phonetic ?: "",
+            text = word.phonetics ?: "",
             style = TextStyle(
                 fontSize = 14.sp,
                 color = PrimaryColor
@@ -95,7 +96,7 @@ fun WordHeader(word: DictionaryRecord) {
 
 // Часть речи
 @Composable
-fun PartOfSpeech(word: DictionaryRecord) {
+fun PartOfSpeech(word: WordModel) {
     Row(
         modifier = Modifier
             .padding(16.dp, 16.dp, 16.dp, 0.dp)
@@ -113,7 +114,7 @@ fun PartOfSpeech(word: DictionaryRecord) {
             modifier = Modifier
                 .padding(16.dp, 0.dp, 0.dp, 0.dp)
                 .align(Alignment.CenterVertically),
-            text = word.meanings[0].partOfSpeech,
+            text = word.partOfSpeech,
             style = TextStyle(
                 fontSize = 14.sp,
                 color = Color.Black
@@ -124,7 +125,7 @@ fun PartOfSpeech(word: DictionaryRecord) {
 
 // Значения слова
 @Composable
-fun Meanings(word: DictionaryRecord) {
+fun Meanings(word: WordModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -148,8 +149,7 @@ fun Meanings(word: DictionaryRecord) {
 // Список определений слова
 @Composable
 fun DefinitionsList(
-    word: DictionaryRecord,
-    viewModel: DictionaryViewModel = koinViewModel()
+    word: WordModel
 ) {
     LazyColumn(
         modifier = Modifier
@@ -157,7 +157,7 @@ fun DefinitionsList(
             .padding(0.dp, 16.dp, 0.dp, 0.dp)
     ) {
         items(
-            items = viewModel.getAllDefinitions(word),
+            items = word.definitions,
             key = { it.definition }
         ) { word ->
             MeaningRow(word)
@@ -167,7 +167,7 @@ fun DefinitionsList(
 
 // Элемент списка определений слова
 @Composable
-fun MeaningRow(definition: Definition) {
+fun MeaningRow(definition: DefinitionModel) {
     Column(
         modifier = Modifier
             .padding(0.dp, 0.dp, 0.dp, 8.dp)
