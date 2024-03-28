@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.model.domain.use_cases.dictionary_screen.DictionaryUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,16 +28,41 @@ class DictionaryViewModel(
     // Поиск
     fun onSearchButtonClick() {
         viewModelScope.launch(Dispatchers.Default) {
-            try{
-                val word = dictionaryUseCase.getDictionaryRecord(searchText.value.text)
+            // Поиск слова
+            val word = dictionaryUseCase.searchWord(searchText.value.text)
 
-                _uiState.update {currentState ->
-                    currentState.copy(word = word)
+            _uiState.update {currentState ->
+                currentState.copy(word = word)
+            }
+
+            // Проверка нахождения слова
+            _uiState.update { currentState ->
+                if (word != null){
+                    currentState.copy(
+                        isInDictionary = dictionaryUseCase.isInDictionary(word)
+                    )
+                }
+                else {
+                    currentState.copy(
+                        isNotFound = true,
+                        errorMessage = R.string.word_not_found
+                    )
                 }
             }
-            catch (e: retrofit2.HttpException) {
+        }
+    }
 
-            }
+    // Удаление слова из словаря
+    fun onRemoveButtonClick() {
+        viewModelScope.launch(Dispatchers.Default) {
+            if (_uiState.value.word != null)
+                dictionaryUseCase.removeWordFromDictionary(_uiState.value.word!!.word)
+        }
+
+        _uiState.update { currentState ->
+            currentState.copy(
+                isInDictionary = false
+            )
         }
     }
 
@@ -45,6 +71,22 @@ class DictionaryViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             if (_uiState.value.word != null)
                 dictionaryUseCase.addToDictionary(_uiState.value.word!!)
+        }
+
+        _uiState.update { currentState ->
+            currentState.copy(
+                isInDictionary = true
+            )
+        }
+    }
+
+    // Закрытие диалога с ошибкой
+    fun onDismiss() {
+        _uiState.update {currentState ->
+            currentState.copy(
+                isNotFound = false,
+                errorMessage = R.string.ok
+            )
         }
     }
 }

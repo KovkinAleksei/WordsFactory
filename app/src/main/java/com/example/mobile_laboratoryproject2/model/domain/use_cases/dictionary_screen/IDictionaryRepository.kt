@@ -11,4 +11,5 @@ interface IDictionaryRepository {
     suspend fun addDefinitions(definitions: List<DefinitionEntity>)
     suspend fun getWordId(word: String) : Int?
     suspend fun getWordDefinitions(wordId: Int): List<DefinitionEntity>
+    suspend fun removeWord(word: String)
 }

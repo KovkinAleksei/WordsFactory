@@ -33,6 +33,7 @@ import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DictionaryViewModel
+import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.ErrorDialog
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -55,6 +56,13 @@ fun DictionaryScreen(
             WordInfo(word)
         else
             DictionaryPlaceholder()
+    }
+
+    if (uiState.isNotFound) {
+        ErrorDialog(
+            errorMessage = uiState.errorMessage,
+            onDismiss = { viewModel.onDismiss() }
+        )
     }
 }
 

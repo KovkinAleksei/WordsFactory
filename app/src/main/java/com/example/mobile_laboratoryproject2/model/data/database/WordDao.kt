@@ -27,4 +27,8 @@ interface WordDao {
     // Получение определений слова
     @Query("SELECT * FROM definitions WHERE wordId = :wordId")
     suspend fun getWordDefinitions(wordId: Int): List<DefinitionEntity>
+
+    // Удаление слова
+    @Query("DELETE FROM words WHERE word = :word")
+    suspend fun removeWord(word: String)
 }

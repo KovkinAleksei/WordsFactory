@@ -30,4 +30,6 @@
     <string name="meanings">Meanings:</string>
     <string name="example">Example:</string>
     <string name="add_to_dictionary">Add to Dictionary</string>
+    <string name="remove_word">Remove from Dictionary</string>
+    <string name="word_not_found">Word was not found</string>
 </resources>

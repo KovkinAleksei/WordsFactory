@@ -22,7 +22,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 
 // Диалоговое окно для отображения ошибки
 @Composable
-fun SignUpErrorDialog(
+fun ErrorDialog(
     errorMessage: Int,
     onDismiss: () -> Unit
 )

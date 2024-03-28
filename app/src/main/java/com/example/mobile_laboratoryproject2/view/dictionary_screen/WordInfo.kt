@@ -18,6 +18,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,17 +41,25 @@ import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_sc
 import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.usable_models.WordModel
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
+import com.example.mobile_laboratoryproject2.ui.theme.RedColor
 import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DictionaryViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun WordInfo(word: WordModel) {
+fun WordInfo(
+    word: WordModel,
+    viewModel: DictionaryViewModel = koinViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
         bottomBar = {
-            AddButton()
+            if (uiState.isInDictionary)
+                RemoveButton()
+            else
+                AddButton()
         }
     ) {
         Column {
@@ -247,6 +257,37 @@ fun AddButton(
             modifier = Modifier
                 .align(Alignment.CenterVertically),
             text = stringResource(id = R.string.add_to_dictionary),
+            style = TextStyle(
+                fontSize = 16.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Medium
+            )
+        )
+    }
+}
+
+// Кнопка удаления слова из словаря
+@Composable
+fun RemoveButton(
+    viewModel: DictionaryViewModel = koinViewModel()
+) {
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(67.dp)
+            .padding(16.dp, 3.dp, 16.dp, 8.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = RedColor
+        ),
+        onClick = {
+            viewModel.onRemoveButtonClick()
+        }
+    ) {
+        Text(
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+            text = stringResource(id = R.string.remove_word),
             style = TextStyle(
                 fontSize = 16.sp,
                 color = Color.White,

@@ -14,9 +14,15 @@ class DictionaryMapper {
             return WordModel(
                 word = dictionaryRecord.word.replaceFirstChar { it.uppercase() },
                 phonetics = dictionaryRecord.phonetic,
-                audio = dictionaryRecord.phonetics[0].audio,
+                audio = if (dictionaryRecord.phonetics.isNotEmpty())
+                    dictionaryRecord.phonetics[0].audio
+                else
+                    "",
                 partOfSpeech = dictionaryRecord.meanings[0].partOfSpeech.replaceFirstChar { it.uppercase() },
-                audioSource = dictionaryRecord.phonetics[0].sourceUrl,
+                audioSource = if (dictionaryRecord.phonetics.isNotEmpty())
+                    dictionaryRecord.phonetics[0].sourceUrl
+                else
+                    "",
                 definitions = getDefinitionModels(dictionaryRecord)
             )
         }
@@ -61,7 +67,7 @@ class DictionaryMapper {
 
         fun wordEntityToWordModel(word: WordEntity, definitions: List<DefinitionEntity>): WordModel {
             return WordModel(
-                word = word.word,
+                word = word.word.replaceFirstChar { it.uppercase() },
                 phonetics = word.phonetics,
                 audio = word.audio,
                 partOfSpeech = word.partOfSpeech,

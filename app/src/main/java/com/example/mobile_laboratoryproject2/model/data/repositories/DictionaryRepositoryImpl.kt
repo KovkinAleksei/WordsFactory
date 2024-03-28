@@ -45,4 +45,11 @@ class DictionaryRepositoryImpl(
     override suspend fun getWordDefinitions(wordId: Int): List<DefinitionEntity> {
         return wordDao.getWordDefinitions(wordId)
     }
+
+    // Удаление слова из бд
+    override suspend fun removeWord(word: String) {
+        val formatedWord = word.lowercase()
+
+        wordDao.removeWord(formatedWord)
+    }
 }
