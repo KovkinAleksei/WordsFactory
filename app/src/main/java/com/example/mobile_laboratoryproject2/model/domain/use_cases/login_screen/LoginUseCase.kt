@@ -2,12 +2,10 @@ package com.example.mobile_laboratoryproject2.model.domain.use_cases.login_scree
 
 import android.util.Patterns
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.model.data.repositories.LoginRepositoryImpl
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 class LoginUseCase(
@@ -20,6 +18,9 @@ class LoginUseCase(
         }
         catch (e: FirebaseAuthInvalidCredentialsException){
             return ValidationResult(false, R.string.invalid_email_password)
+        }
+        catch (e: FirebaseNetworkException) {
+            return ValidationResult(false, R.string.no_connection)
         }
 
         return ValidationResult(true, R.string.ok)

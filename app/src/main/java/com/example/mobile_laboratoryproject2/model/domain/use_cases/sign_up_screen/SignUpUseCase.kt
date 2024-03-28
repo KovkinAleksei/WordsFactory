@@ -4,6 +4,7 @@ import android.util.Patterns
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
 import com.example.mobile_laboratoryproject2.model.data.repositories.SignUpRepositoryImpl
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -24,6 +25,9 @@ class SignUpUseCase(
         }
         catch (e: FirebaseAuthInvalidCredentialsException) {
             return ValidationResult(false, R.string.invalid_email)
+        }
+        catch (e: FirebaseNetworkException) {
+            return ValidationResult(false, R.string.no_connection)
         }
 
         return ValidationResult(true, R.string.ok)

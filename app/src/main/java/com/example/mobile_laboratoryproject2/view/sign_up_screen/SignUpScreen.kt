@@ -263,73 +263,99 @@ fun PasswordTextField(
     val uiState by vm.uiState.collectAsState()
     val interactionSource = remember { MutableInteractionSource() }
 
-    BasicTextField(
+    Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp, 16.dp, 16.dp, 0.dp),
-        value = textFieldValue.value,
-        onValueChange = {
-            handleInput(it)
-        },
-        singleLine = true,
-        interactionSource = interactionSource,
-        visualTransformation =
+            .padding(16.dp, 24.dp, 16.dp, 0.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .border(
+                width = 1.dp,
+                color = GrayColor,
+                shape = RoundedCornerShape(12.dp)
+            )
+    ) {
+        BasicTextField(
+            modifier = Modifier
+                .weight(1f),
+            value = textFieldValue.value,
+            onValueChange = {
+                handleInput(it)
+            },
+            singleLine = true,
+            interactionSource = interactionSource,
+            visualTransformation =
             if (uiState.isHiddenPassword)
                 PasswordVisualTransformation()
             else
                 VisualTransformation.None,
-        decorationBox = { innerTextField ->
-            TextFieldDefaults.DecorationBox(
-                value = textFieldValue.value.text,
-                innerTextField = innerTextField,
-                enabled = true,
-                singleLine = true,
-                visualTransformation = VisualTransformation.None,
-                interactionSource = interactionSource,
-                label = {
-                    Text(
-                        text = placeholderText,
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            color = DarkGrayColor
-                        )
-                    )
-                },
-                container = {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .border(
-                                width = 1.dp,
-                                color = GrayColor,
-                                shape = RoundedCornerShape(12.dp)
+            decorationBox = { innerTextField ->
+                TextFieldDefaults.DecorationBox(
+                    value = textFieldValue.value.text,
+                    innerTextField = innerTextField,
+                    enabled = true,
+                    singleLine = true,
+                    visualTransformation = VisualTransformation.None,
+                    interactionSource = interactionSource,
+                    label = {
+                        Text(
+                            text = placeholderText,
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                color = DarkGrayColor
                             )
-                    ) {
-                        Spacer(Modifier.weight(1f))
-                        Image(
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(0.dp, 0.dp, 16.dp, 0.dp)
-                                .clip(CircleShape)
-                                .clickable {
-                                    vm.onHideButtonClick()
-                                },
-                            imageVector =
+                        )
+                    },
+                    container = {
+                        Row(
+                           /* modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp))
+                                .border(
+                                    width = 1.dp,
+                                    color = GrayColor,
+                                    shape = RoundedCornerShape(12.dp)
+                                )*/
+                        ) {
+                            /*Spacer(Modifier.weight(1f))
+                            Image(
+                                modifier = Modifier
+                                    .align(Alignment.CenterVertically)
+                                    .padding(0.dp, 0.dp, 16.dp, 0.dp)
+                                    .clip(CircleShape)
+                                    .clickable {
+                                        vm.onHideButtonClick()
+                                    },
+                                imageVector =
                                 if (uiState.isHiddenPassword)
                                     ImageVector.vectorResource(R.drawable.closed_eye)
                                 else
                                     ImageVector.vectorResource(R.drawable.opened_eye),
-                            contentDescription = null
-                        )
+                                contentDescription = null
+                            )*/
+                        }
                     }
-                }
+                )
+            },
+            textStyle = TextStyle(
+                fontSize = 14.sp,
+                color = DarkColor,
+                fontWeight = FontWeight.Medium
             )
-        },
-        textStyle = TextStyle(
-            fontSize = 14.sp,
-            color = DarkColor,
-            fontWeight = FontWeight.Medium
         )
-    )
+
+        Image(
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding(0.dp, 0.dp, 16.dp, 0.dp)
+                .clip(CircleShape)
+                .clickable {
+                    vm.onHideButtonClick()
+                },
+            imageVector =
+            if (uiState.isHiddenPassword)
+                ImageVector.vectorResource(R.drawable.closed_eye)
+            else
+                ImageVector.vectorResource(R.drawable.opened_eye),
+            contentDescription = null
+        )
+    }
 }
