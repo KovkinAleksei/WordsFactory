@@ -58,5 +58,25 @@ class DictionaryMapper {
                 )
             }
         }
+
+        fun wordEntityToWordModel(word: WordEntity, definitions: List<DefinitionEntity>): WordModel {
+            return WordModel(
+                word = word.word,
+                phonetics = word.phonetics,
+                audio = word.audio,
+                partOfSpeech = word.partOfSpeech,
+                audioSource = word.audioSource,
+                definitions = definitionEntitiesToDefinitionModels(definitions)
+            )
+        }
+
+        private fun definitionEntitiesToDefinitionModels(definitions: List<DefinitionEntity>): List<DefinitionModel> {
+            return definitions.map {
+                DefinitionModel(
+                    definition = it.definition,
+                    example = it.example
+                )
+            }
+        }
     }
 }

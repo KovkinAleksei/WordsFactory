@@ -16,7 +16,15 @@ interface WordDao {
     @Insert
     suspend fun addDefinitions(definitions: List<DefinitionEntity>)
 
-    // Получение id слова в бд
+    // Получение id слова
     @Query("SELECT id FROM words WHERE word = :word")
     suspend fun getWordId(word: String) : Int?
+
+    // Получение слова
+    @Query("SELECT * FROM words WHERE word = :word")
+    suspend fun getWord(word: String) : WordEntity?
+
+    // Получение определений слова
+    @Query("SELECT * FROM definitions WHERE wordId = :wordId")
+    suspend fun getWordDefinitions(wordId: Int): List<DefinitionEntity>
 }

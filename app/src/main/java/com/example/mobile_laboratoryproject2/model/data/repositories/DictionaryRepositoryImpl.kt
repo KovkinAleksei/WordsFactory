@@ -11,13 +11,15 @@ class DictionaryRepositoryImpl(
     private val wordDao: WordDao
 ) : IDictionaryRepository {
     // Получение списка значений слова
-    override suspend fun getDictionaryRecord(word: String) : List<DictionaryRecord> {
+    override suspend fun getDictionaryRecordFromServer(word: String) : List<DictionaryRecord> {
         return dictionaryService.getDictionaryRecord(word)
     }
 
     // Сохранение слова локально
     override suspend fun addToDictionary(word: WordEntity) {
-        wordDao.addWord(word)
+        val formatedWord = word.copy(word = word.word.lowercase())
+
+        wordDao.addWord(formatedWord)
     }
 
     // Сохранение определений локально
@@ -27,6 +29,20 @@ class DictionaryRepositoryImpl(
 
     // Получение id слова
     override suspend fun getWordId(word: String) : Int? {
-        return wordDao.getWordId(word)
+        val formatedWord = word.lowercase()
+
+        return wordDao.getWordId(formatedWord)
+    }
+
+    // Получение слова из бд
+    override suspend fun getWordFromDatabase(word: String): WordEntity? {
+        val formatedWord = word.lowercase()
+
+        return wordDao.getWord(formatedWord)
+    }
+
+    // Получение определений слова из бд
+    override suspend fun getWordDefinitions(wordId: Int): List<DefinitionEntity> {
+        return wordDao.getWordDefinitions(wordId)
     }
 }
