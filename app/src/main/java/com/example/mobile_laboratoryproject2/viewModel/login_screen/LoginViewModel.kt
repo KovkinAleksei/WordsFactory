@@ -4,9 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile_laboratoryproject2.model.domain.entities.ValidationResult
-import com.example.mobile_laboratoryproject2.model.domain.use_cases.login_screen.LoginCredentials
-import com.example.mobile_laboratoryproject2.model.domain.use_cases.login_screen.LoginUseCase
+import com.example.mobile_laboratoryproject2.viewModel.ValidationResult
+import com.example.mobile_laboratoryproject2.domain.use_cases.login_screen.LoginCredentials
+import com.example.mobile_laboratoryproject2.domain.use_cases.login_screen.LoginUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

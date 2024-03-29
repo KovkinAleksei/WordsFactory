@@ -13,6 +13,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -28,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.navigation.Destination
+import com.example.mobile_laboratoryproject2.viewModel.navigation.Destination
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
@@ -37,22 +38,24 @@ import com.example.mobile_laboratoryproject2.view.sign_up_screen.PasswordTextFie
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.TextField
 import com.example.mobile_laboratoryproject2.viewModel.login_screen.LoginViewModel
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.ErrorDialog
+import kotlinx.coroutines.flow.collect
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
-    navController: NavController,
+    onLogin: () -> Unit,
+    onSignUpButtonClick: () -> Unit,
     vm: LoginViewModel = koinViewModel()
-)
-{
+) {
     val uiState by vm.uiState.collectAsState()
 
-    if (uiState.isLoggedIn)
-        navController.navigate(Destination.DictionaryScreen.name) {
-            popUpTo(Destination.LoginScreen.name) {
-                inclusive = true
+    LaunchedEffect(key1 = Unit) {
+        vm.uiState.collect {
+            if (uiState.isLoggedIn) {
+                onLogin()
             }
         }
+    }
 
     Column {
         Image(
@@ -95,11 +98,7 @@ fun LoginScreen(
                 modifier = Modifier
                     .padding(4.dp, 8.dp, 0.dp, 0.dp)
                     .clickable {
-                        navController.navigate(Destination.SignUpScreen.name) {
-                            popUpTo(Destination.LoginScreen.name) {
-                                inclusive = true
-                            }
-                        }
+                        onSignUpButtonClick()
                     },
                 text = stringResource(id = R.string.sign_up),
                 style = TextStyle(
@@ -111,16 +110,16 @@ fun LoginScreen(
 
         TextField(
             textFieldValue = vm.email,
-            handleInput = {
-                    input -> vm.handleEmailInput(input)
+            handleInput = { input ->
+                vm.handleEmailInput(input)
             },
             placeholderText = stringResource(id = R.string.email_placeholder)
         )
 
         PasswordTextField(
             textFieldValue = vm.password,
-            handleInput = {
-                    input -> vm.handlePasswordInput(input)
+            handleInput = { input ->
+                vm.handlePasswordInput(input)
             },
             placeholderText = stringResource(id = R.string.password_placeholder)
         )

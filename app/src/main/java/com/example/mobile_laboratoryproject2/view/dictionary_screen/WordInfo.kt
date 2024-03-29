@@ -35,10 +35,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.api_response.Definition
-import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.api_response.DictionaryRecord
-import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.usable_models.DefinitionModel
-import com.example.mobile_laboratoryproject2.model.domain.entities.dictionary_screen.usable_models.WordModel
+import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DefinitionModel
+import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordModel
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.RedColor

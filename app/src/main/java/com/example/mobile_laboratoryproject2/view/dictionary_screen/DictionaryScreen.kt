@@ -28,7 +28,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
@@ -38,7 +37,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DictionaryScreen(
-    navController: NavHostController,
     viewModel: DictionaryViewModel = koinViewModel()
 )
 {
@@ -58,7 +56,7 @@ fun DictionaryScreen(
             DictionaryPlaceholder()
     }
 
-    if (uiState.isNotFound) {
+    if (!uiState.isWordCorrect) {
         ErrorDialog(
             errorMessage = uiState.errorMessage,
             onDismiss = { viewModel.onDismiss() }

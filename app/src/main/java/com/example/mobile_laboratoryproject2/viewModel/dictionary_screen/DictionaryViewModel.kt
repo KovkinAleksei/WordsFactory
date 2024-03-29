@@ -5,7 +5,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.model.domain.use_cases.dictionary_screen.DictionaryUseCase
+import com.example.mobile_laboratoryproject2.domain.use_cases.dictionary_screen.DictionaryUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,28 +27,43 @@ class DictionaryViewModel(
 
     // Поиск
     fun onSearchButtonClick() {
-        viewModelScope.launch(Dispatchers.Default) {
-            // Поиск слова
-            val word = dictionaryUseCase.searchWord(searchText.value.text)
+        // Валидация введённого для поиска слова
+        validateSerchTextField()
 
-            _uiState.update {currentState ->
-                currentState.copy(word = word)
-            }
+        if (!_uiState.value.isWordCorrect)
+            return
+
+        // Поиск введённого слова
+        viewModelScope.launch(Dispatchers.Default) {
+            val word = dictionaryUseCase.searchWord(searchText.value.text)
 
             // Проверка нахождения слова
             _uiState.update { currentState ->
                 if (word != null){
                     currentState.copy(
-                        isInDictionary = dictionaryUseCase.isInDictionary(word)
+                        isInDictionary = dictionaryUseCase.isInDictionary(word),
+                        word = word
                     )
                 }
                 else {
                     currentState.copy(
-                        isNotFound = true,
+                        isWordCorrect = false,
                         errorMessage = R.string.word_not_found
                     )
                 }
             }
+        }
+    }
+
+    // Валидация поля поиска слова
+    private fun validateSerchTextField() {
+        val validationResult = dictionaryUseCase.validateSearchTextField(searchText.value.text)
+
+        _uiState.update { currentState ->
+            currentState.copy(
+                isWordCorrect = validationResult.isCorrect,
+                errorMessage = validationResult.errorMessage
+            )
         }
     }
 
@@ -84,7 +99,7 @@ class DictionaryViewModel(
     fun onDismiss() {
         _uiState.update {currentState ->
             currentState.copy(
-                isNotFound = false,
+                isWordCorrect = true,
                 errorMessage = R.string.ok
             )
         }

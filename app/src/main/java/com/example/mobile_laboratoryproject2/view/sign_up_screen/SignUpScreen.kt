@@ -42,9 +42,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.navigation.Destination
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
@@ -57,19 +55,15 @@ import org.koin.androidx.compose.koinViewModel
 // Экран регистрации
 @Composable
 fun SignUpScreen(
-    navController: NavHostController,
-    vm : SignUpViewModel = koinViewModel()
-)
-{
+    onSignUp: () -> Unit,
+    onSignInButtonClick: () -> Unit,
+    vm: SignUpViewModel = koinViewModel()
+) {
     val uiState by vm.uiState.collectAsState()
     val scroll = rememberScrollState()
 
     if (uiState.isSignedUp)
-        navController.navigate(Destination.DictionaryScreen.name) {
-            popUpTo(Destination.SignUpScreen.name) {
-                inclusive = true
-            }
-        }
+        onSignUp()
 
     Column(
         modifier = Modifier.verticalScroll(scroll)
@@ -114,11 +108,7 @@ fun SignUpScreen(
                 modifier = Modifier
                     .padding(4.dp, 8.dp, 0.dp, 0.dp)
                     .clickable {
-                           navController.navigate(Destination.LoginScreen.name) {
-                               popUpTo(Destination.SignUpScreen.name) {
-                                   inclusive = true
-                               }
-                           }
+                        onSignInButtonClick()
                     },
                 text = stringResource(id = R.string.sign_in),
                 style = TextStyle(
@@ -131,24 +121,24 @@ fun SignUpScreen(
         // Поля ввода данных для регистрации
         TextField(
             textFieldValue = vm.name,
-            handleInput = {
-                input -> vm.handleNameInput(input)
+            handleInput = { input ->
+                vm.handleNameInput(input)
             },
             placeholderText = stringResource(id = R.string.name_placeholder)
         )
 
         TextField(
             textFieldValue = vm.email,
-            handleInput = {
-                    input -> vm.handleEmailInput(input)
+            handleInput = { input ->
+                vm.handleEmailInput(input)
             },
             placeholderText = stringResource(id = R.string.email_placeholder)
         )
 
         PasswordTextField(
             textFieldValue = vm.password,
-            handleInput = {
-                input -> vm.handlePasswordInput(input)
+            handleInput = { input ->
+                vm.handlePasswordInput(input)
             },
             placeholderText = stringResource(id = R.string.password_placeholder)
         )
@@ -197,8 +187,7 @@ fun TextField(
     textFieldValue: MutableState<TextFieldValue>,
     handleInput: (TextFieldValue) -> Unit,
     placeholderText: String
-)
-{
+) {
     val interactionSource = remember { MutableInteractionSource() }
 
     BasicTextField(
@@ -305,32 +294,7 @@ fun PasswordTextField(
                         )
                     },
                     container = {
-                        Row(
-                           /* modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(12.dp))
-                                .border(
-                                    width = 1.dp,
-                                    color = GrayColor,
-                                    shape = RoundedCornerShape(12.dp)
-                                )*/
-                        ) {
-                            /*Spacer(Modifier.weight(1f))
-                            Image(
-                                modifier = Modifier
-                                    .align(Alignment.CenterVertically)
-                                    .padding(0.dp, 0.dp, 16.dp, 0.dp)
-                                    .clip(CircleShape)
-                                    .clickable {
-                                        vm.onHideButtonClick()
-                                    },
-                                imageVector =
-                                if (uiState.isHiddenPassword)
-                                    ImageVector.vectorResource(R.drawable.closed_eye)
-                                else
-                                    ImageVector.vectorResource(R.drawable.opened_eye),
-                                contentDescription = null
-                            )*/
+                        Row {
                         }
                     }
                 )

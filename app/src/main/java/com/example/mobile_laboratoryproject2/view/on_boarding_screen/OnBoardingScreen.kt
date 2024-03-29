@@ -33,9 +33,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.navigation.Destination
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PaginationColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
@@ -47,10 +45,10 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingScreen(
-    navController: NavHostController,
+    onSkipButtonClick: () -> Unit,
+    onStartButtonClick: () -> Unit,
     vm: OnBoardingViewModel = koinViewModel()
-)
-{
+) {
     val uiState by vm.uiState.collectAsState()
 
     Column {
@@ -60,11 +58,7 @@ fun OnBoardingScreen(
                 .align(Alignment.End)
                 .padding(0.dp, 24.dp, 16.dp, 0.dp)
                 .clickable {
-                    navController.navigate(Destination.SignUpScreen.name) {
-                        popUpTo(Destination.OnBoardingScreen.name) {
-                            inclusive = true
-                        }
-                    }
+                    onSkipButtonClick()
                 },
             text = stringResource(id = R.string.skip),
             style = TextStyle(
@@ -76,7 +70,7 @@ fun OnBoardingScreen(
 
         // Пролистывающиеся страницы приветственного экрана
         val pagerState = rememberPagerState(
-            pageCount = {uiState.pagesCount}
+            pageCount = { uiState.pagesCount }
         )
 
         LaunchedEffect(uiState.currentPage) {
@@ -91,7 +85,7 @@ fun OnBoardingScreen(
             modifier = Modifier.weight(1f),
             state = pagerState
         ) { page ->
-            when(page) {
+            when (page) {
                 0 -> OnBoardingFirstPage()
                 1 -> OnBoardingSecondPage()
                 else -> OnBoardingThirdPage()
@@ -105,14 +99,13 @@ fun OnBoardingScreen(
         if (uiState.currentPage != uiState.pagesCount)
             NextButton()
         else
-            LetsStartButton(navController)
+            LetsStartButton(onStartButtonClick)
     }
 }
 
 // Индикатор выбранной страницы
 @Composable
-fun Pagination(vm: OnBoardingViewModel = koinViewModel())
-{
+fun Pagination(vm: OnBoardingViewModel = koinViewModel()) {
     val uiState by vm.uiState.collectAsState()
 
     Row(
@@ -122,8 +115,8 @@ fun Pagination(vm: OnBoardingViewModel = koinViewModel())
     ) {
         Spacer(modifier = Modifier.weight(1f))
 
-        for (i in 1..uiState.pagesCount){
-            if (i == uiState.currentPage){
+        for (i in 1..uiState.pagesCount) {
+            if (i == uiState.currentPage) {
                 SelectedPage()
             }
             else {
@@ -137,19 +130,18 @@ fun Pagination(vm: OnBoardingViewModel = koinViewModel())
 
 // Пометка выбранной страницы
 @Composable
-fun SelectedPage()
-{
-    Box(modifier = Modifier
-        .size(16.dp, 6.dp)
-        .clip(RoundedCornerShape(4.dp))
-        .background(SecondaryColor)
+fun SelectedPage() {
+    Box(
+        modifier = Modifier
+            .size(16.dp, 6.dp)
+            .clip(RoundedCornerShape(4.dp))
+            .background(SecondaryColor)
     )
 }
 
 // Пометка невыбранной страницы
 @Composable
-fun UnselectedPage()
-{
+fun UnselectedPage() {
     Box(
         modifier = Modifier
             .size(6.dp, 6.dp)
@@ -160,8 +152,7 @@ fun UnselectedPage()
 
 // Кнопка перехода на следующую страницу
 @Composable
-fun NextButton(vm : OnBoardingViewModel = koinViewModel())
-{
+fun NextButton(vm: OnBoardingViewModel = koinViewModel()) {
 
     Button(
         modifier = Modifier
@@ -190,8 +181,7 @@ fun NextButton(vm : OnBoardingViewModel = koinViewModel())
 
 // Кнопка перехода с приветственного экрана
 @Composable
-fun LetsStartButton(navController: NavHostController)
-{
+fun LetsStartButton(onStartButtonClick: () -> Unit) {
     Button(
         modifier = Modifier
             .fillMaxWidth()
@@ -203,11 +193,7 @@ fun LetsStartButton(navController: NavHostController)
             containerColor = PrimaryColor
         ),
         onClick = {
-            navController.navigate(Destination.SignUpScreen.name) {
-                popUpTo(Destination.OnBoardingScreen.name) {
-                    inclusive = true
-                }
-            }
+            onStartButtonClick()
         }
     ) {
         Text(
