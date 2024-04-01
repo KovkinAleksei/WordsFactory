@@ -46,12 +46,14 @@ import com.example.mobile_laboratoryproject2.ui.theme.RedColor
 import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
 import com.example.mobile_laboratoryproject2.view.common.NavBar
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DictionaryViewModel
+import com.example.mobile_laboratoryproject2.viewModel.navigation.Destination
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun WordInfo(
     word: WordModel,
+    onTrainingClick: () -> Unit,
     viewModel: DictionaryViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -65,7 +67,10 @@ fun WordInfo(
                 else
                     AddButton()
 
-                NavBar()
+                NavBar(
+                    currentScreen = Destination.DictionaryScreen,
+                    onTrainingClick = onTrainingClick
+                )
             }
         }
     ) {

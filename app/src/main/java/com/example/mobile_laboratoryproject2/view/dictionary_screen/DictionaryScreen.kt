@@ -16,7 +16,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,9 +37,8 @@ import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.view.common.NavBar
-import com.example.mobile_laboratoryproject2.viewModel.common.NavBarItems
-import com.example.mobile_laboratoryproject2.viewModel.common.NavBarViewModel
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DictionaryViewModel
+import com.example.mobile_laboratoryproject2.viewModel.navigation.Destination
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.ErrorDialog
 import org.koin.androidx.compose.koinViewModel
 
@@ -48,27 +46,18 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun DictionaryScreen(
     onTrainingClick: () -> Unit,
-    viewModel: DictionaryViewModel = koinViewModel(),
-    navBarViewModel: NavBarViewModel = koinViewModel()
+    viewModel: DictionaryViewModel = koinViewModel()
 )
 {
     val uiState by viewModel.uiState.collectAsState()
-    val navBarState by navBarViewModel.uiState.collectAsState()
-
-    // Переход на экраны по нижней навигационной пенели
-    LaunchedEffect(navBarState.selectedItem) {
-        when(navBarState.selectedItem) {
-            NavBarItems.Training -> onTrainingClick()
-            else -> {
-
-            }
-        }
-    }
 
     Scaffold(
         Modifier.background(Color.White),
         bottomBar = {
-            NavBar()
+            NavBar(
+                currentScreen = Destination.DictionaryScreen,
+                onTrainingClick = onTrainingClick
+            )
         }
     ) {
         Column(
@@ -84,7 +73,7 @@ fun DictionaryScreen(
             val word = uiState.word
 
             if (word != null)
-                WordInfo(word)
+                WordInfo(word, onTrainingClick)
             else
                 DictionaryPlaceholder()
         }

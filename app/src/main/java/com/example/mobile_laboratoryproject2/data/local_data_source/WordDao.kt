@@ -31,4 +31,8 @@ interface WordDao {
     // Удаление слова
     @Query("DELETE FROM words WHERE word = :word")
     suspend fun removeWord(word: String)
+
+    // Получение кол-ва слов в словаре
+    @Query("SELECT COUNT(*) FROM words")
+    suspend fun getWordsAmount(): Int
 }

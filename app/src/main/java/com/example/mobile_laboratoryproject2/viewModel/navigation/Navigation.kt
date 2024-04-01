@@ -92,7 +92,15 @@ fun Navigation() {
 
         // Экран повторения слов
         composable(Destination.TrainingScreen.name) {
-            TrainingScreen()
+            TrainingScreen(
+                onDictionaryClick = {
+                    navController.navigate(Destination.DictionaryScreen.name) {
+                        popUpTo(Destination.TrainingScreen.name) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
     }
 }

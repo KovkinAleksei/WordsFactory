@@ -37,4 +37,8 @@
     <string name="dictionary">Dictionary</string>
     <string name="training">Training</string>
     <string name="video">Video</string>
+    <string name="there_are">There are</string>
+    <string name="words_in_dictionary">words in your Dictionary.</string>
+    <string name="start_training">Start the Training?</string>
+    <string name="start">Start</string>
 </resources>

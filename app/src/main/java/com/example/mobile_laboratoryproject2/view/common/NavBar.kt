@@ -8,15 +8,12 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,17 +28,16 @@ import androidx.compose.ui.unit.sp
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
-import com.example.mobile_laboratoryproject2.viewModel.common.NavBarItems
-import com.example.mobile_laboratoryproject2.viewModel.common.NavBarViewModel
-import org.koin.androidx.compose.koinViewModel
+import com.example.mobile_laboratoryproject2.viewModel.navigation.Destination
 
 // Нижняя навигационная панель
 @Composable
 fun NavBar(
-    viewModel: NavBarViewModel = koinViewModel()
+    currentScreen: Destination,
+    onDictionaryClick: () -> Unit = {},
+    onTrainingClick: () -> Unit = {},
+    onVideoClick: () -> Unit = {}
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp, 16.dp, 0.dp, 0.dp))
@@ -57,40 +53,40 @@ fun NavBar(
     ) {
         // Элемент Dictionary
         NavigationElement(
-            icon = if (uiState.selectedItem == NavBarItems.Dictionary)
+            icon = if (currentScreen == Destination.DictionaryScreen)
                 R.drawable.dictonary_selected
             else
                 R.drawable.dictionary_unselected,
             title = R.string.dictionary,
-            isSelected = uiState.selectedItem == NavBarItems.Dictionary,
+            isSelected = currentScreen == Destination.DictionaryScreen,
             onClick = {
-                viewModel.onDictionaryClick()
+                onDictionaryClick()
             }
         )
 
         // Элемент Training
         NavigationElement(
-            icon = if (uiState.selectedItem == NavBarItems.Training)
+            icon = if (currentScreen == Destination.TrainingScreen)
                 R.drawable.training_selected
             else
                 R.drawable.training_unselected,
             title = R.string.training,
-            isSelected = uiState.selectedItem == NavBarItems.Training,
+            isSelected = currentScreen == Destination.TrainingScreen,
             onClick = {
-                viewModel.onTrainingClick()
+                onTrainingClick()
             }
         )
 
         // Элемент Video
         NavigationElement(
-            icon = if (uiState.selectedItem == NavBarItems.Video)
+            icon = if (currentScreen == Destination.VideoScreen)
                 R.drawable.video_selected
             else
                 R.drawable.video_unselected,
             title = R.string.video,
-            isSelected = uiState.selectedItem == NavBarItems.Video,
+            isSelected = currentScreen == Destination.VideoScreen,
             onClick = {
-                viewModel.onVideoClick()
+                onVideoClick()
             }
         )
     }
