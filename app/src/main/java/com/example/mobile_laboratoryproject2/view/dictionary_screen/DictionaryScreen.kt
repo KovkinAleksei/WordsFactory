@@ -1,17 +1,22 @@
 package com.example.mobile_laboratoryproject2.view.dictionary_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
@@ -31,29 +37,57 @@ import androidx.compose.ui.unit.sp
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
+import com.example.mobile_laboratoryproject2.view.common.NavBar
+import com.example.mobile_laboratoryproject2.viewModel.common.NavBarItems
+import com.example.mobile_laboratoryproject2.viewModel.common.NavBarViewModel
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DictionaryViewModel
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.ErrorDialog
 import org.koin.androidx.compose.koinViewModel
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DictionaryScreen(
-    viewModel: DictionaryViewModel = koinViewModel()
+    onTrainingClick: () -> Unit,
+    viewModel: DictionaryViewModel = koinViewModel(),
+    navBarViewModel: NavBarViewModel = koinViewModel()
 )
 {
     val uiState by viewModel.uiState.collectAsState()
+    val navBarState by navBarViewModel.uiState.collectAsState()
 
-    Column {
-        SearchTextField(
-            textFieldValue = viewModel.searchText,
-            handleInput = { viewModel.handleSearchInput(it) }
-        )
+    // Переход на экраны по нижней навигационной пенели
+    LaunchedEffect(navBarState.selectedItem) {
+        when(navBarState.selectedItem) {
+            NavBarItems.Training -> onTrainingClick()
+            else -> {
 
-        val word = uiState.word
+            }
+        }
+    }
 
-        if (word != null)
-            WordInfo(word)
-        else
-            DictionaryPlaceholder()
+    Scaffold(
+        Modifier.background(Color.White),
+        bottomBar = {
+            NavBar()
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .background(Color.White)
+                .fillMaxSize()
+        ) {
+            SearchTextField(
+                textFieldValue = viewModel.searchText,
+                handleInput = { viewModel.handleSearchInput(it) }
+            )
+
+            val word = uiState.word
+
+            if (word != null)
+                WordInfo(word)
+            else
+                DictionaryPlaceholder()
+        }
     }
 
     if (!uiState.isWordCorrect) {

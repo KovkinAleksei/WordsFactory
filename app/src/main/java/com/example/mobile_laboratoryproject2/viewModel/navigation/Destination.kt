@@ -5,5 +5,6 @@ enum class Destination {
     OnBoardingScreen,
     SignUpScreen,
     LoginScreen,
-    DictionaryScreen
+    DictionaryScreen,
+    TrainingScreen
 }

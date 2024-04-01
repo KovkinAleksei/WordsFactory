@@ -1,9 +1,11 @@
 package com.example.mobile_laboratoryproject2.app
 
 import android.app.Application
+import com.example.mobile_laboratoryproject2.di.authorizationModule
 import com.example.mobile_laboratoryproject2.di.databaseModule
 import com.example.mobile_laboratoryproject2.di.dictionaryModule
 import com.example.mobile_laboratoryproject2.di.loginModule
+import com.example.mobile_laboratoryproject2.di.navBarModule
 import com.example.mobile_laboratoryproject2.di.networkModule
 import com.example.mobile_laboratoryproject2.di.onBoardingModule
 import com.example.mobile_laboratoryproject2.di.signUpModule
@@ -26,7 +28,9 @@ class App : Application() {
                     loginModule,
                     dictionaryModule,
                     databaseModule,
-                    networkModule
+                    networkModule,
+                    authorizationModule,
+                    navBarModule
                 )
             )
         }

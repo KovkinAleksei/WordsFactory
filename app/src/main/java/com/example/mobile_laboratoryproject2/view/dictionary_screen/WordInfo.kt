@@ -2,7 +2,9 @@ package com.example.mobile_laboratoryproject2.view.dictionary_screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -41,6 +44,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.RedColor
 import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
+import com.example.mobile_laboratoryproject2.view.common.NavBar
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DictionaryViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -53,14 +57,22 @@ fun WordInfo(
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
+        Modifier.background(Color.White),
         bottomBar = {
-            if (uiState.isInDictionary)
-                RemoveButton()
-            else
-                AddButton()
+            Column {
+                if (uiState.isInDictionary)
+                    RemoveButton()
+                else
+                    AddButton()
+
+                NavBar()
+            }
         }
     ) {
-        Column {
+        Column(
+            modifier = Modifier
+                .background(Color.White)
+        ) {
             WordHeader(word)
             PartOfSpeech(word)
             Meanings(word)
@@ -137,7 +149,7 @@ fun Meanings(word: WordModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp, 0.dp, 16.dp, 69.dp)
+            .padding(16.dp, 0.dp, 16.dp, 163.dp)
     ) {
         Text(
             modifier = Modifier
@@ -159,18 +171,43 @@ fun Meanings(word: WordModel) {
 fun DefinitionsList(
     word: WordModel
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(0.dp, 16.dp, 0.dp, 0.dp)
-    ) {
-        items(
-            items = word.definitions,
-            key = { it.definition }
-        ) { word ->
-            MeaningRow(word)
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .padding(0.dp, 12.dp, 0.dp, 4.dp)
+    )
+    {
+        LazyColumn(
+            modifier = Modifier
+               // .padding(0.dp, 4.dp, 0.dp, 0.dp)
+                .fillMaxSize()
+        ) {
+            items(
+                items = word.definitions,
+                key = { it.definition }
+            ) { word ->
+                MeaningRow(word)
+            }
         }
+
+        Box(modifier = Modifier
+            .height(10.dp)
+            .background(
+                brush = Brush.verticalGradient(listOf(Color.Transparent, Color.White))
+            )
+            .fillMaxWidth()
+            .align(Alignment.BottomCenter)
+        )
+
+        Box(modifier = Modifier
+            .height(10.dp)
+            .background(
+                brush = Brush.verticalGradient(listOf(Color.White, Color.Transparent))
+            )
+            .fillMaxWidth()
+            .align(Alignment.TopCenter)
+        )
     }
+
 }
 
 // Элемент списка определений слова
@@ -178,7 +215,7 @@ fun DefinitionsList(
 fun MeaningRow(definition: DefinitionModel) {
     Column(
         modifier = Modifier
-            .padding(0.dp, 0.dp, 0.dp, 8.dp)
+            .padding(0.dp, 4.dp, 0.dp, 4.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
             .border(

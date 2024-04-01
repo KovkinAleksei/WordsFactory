@@ -8,6 +8,7 @@ import com.example.mobile_laboratoryproject2.view.dictionary_screen.DictionarySc
 import com.example.mobile_laboratoryproject2.view.login_screen.LoginScreen
 import com.example.mobile_laboratoryproject2.view.on_boarding_screen.OnBoardingScreen
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.SignUpScreen
+import com.example.mobile_laboratoryproject2.view.training_screen.TrainingScreen
 
 @Composable
 fun Navigation() {
@@ -15,8 +16,8 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Destination.OnBoardingScreen.name
-        //  startDestination = Destination.DictionaryScreen.name
+      //  startDestination = Destination.OnBoardingScreen.name
+          startDestination = Destination.DictionaryScreen.name
     ) {
         // Начальный экран
         composable(Destination.OnBoardingScreen.name) {
@@ -80,7 +81,18 @@ fun Navigation() {
 
         // Экран словаря
         composable(Destination.DictionaryScreen.name) {
-            DictionaryScreen()
+            DictionaryScreen(
+                onTrainingClick = {
+                    navController.navigate(Destination.TrainingScreen.name) {
+                        popUpTo(Destination.DictionaryScreen.name)
+                    }
+                }
+            )
+        }
+
+        // Экран повторения слов
+        composable(Destination.TrainingScreen.name) {
+            TrainingScreen()
         }
     }
 }

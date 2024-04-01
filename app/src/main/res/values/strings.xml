@@ -34,4 +34,7 @@
     <string name="word_not_found">Word was not found</string>
     <string name="no_connection">No internet connection</string>
     <string name="empty_search">Search field is empty</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="training">Training</string>
+    <string name="video">Video</string>
 </resources>
