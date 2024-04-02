@@ -17,3 +17,8 @@ val DarkColor = Color(0xFF3C3A36)
 val PrimaryColor = Color(0xFFE3562A)
 val SecondaryColor = Color(0xFF65AAEA)
 val RedColor = Color(0xFFEF4949)
+
+val TimerBlue = Color(0xFF65AAEA)
+val TimerGreen = Color(0xFF5BA092)
+val TimerYellowColor = Color(0xFFF2A03F)
+val TimerRedColor = Color(0xFFEF4949)

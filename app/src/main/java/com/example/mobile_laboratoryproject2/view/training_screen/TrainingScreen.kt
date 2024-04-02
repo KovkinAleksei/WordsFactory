@@ -2,14 +2,18 @@ package com.example.mobile_laboratoryproject2.view.training_screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -47,7 +52,9 @@ fun TrainingScreen(
     Scaffold(
         bottomBar = {
             Column {
-                StartButton()
+                if (!uiState.isStarted)
+                    StartButton()
+
                 NavBar(
                     currentScreen = Destination.TrainingScreen,
                     onDictionaryClick = onDictionaryClick
@@ -111,6 +118,9 @@ fun TrainingScreen(
                     color = Color.Black
                 )
             )
+
+            if (uiState.isStarted)
+                Countdown()
         }
     }
 }
@@ -118,6 +128,7 @@ fun TrainingScreen(
 // Кнопка запуска повтора слов
 @Composable
 fun StartButton(
+    viewModel: TrainingViewModel = koinViewModel()
 ) {
     Button(
         modifier = Modifier
@@ -129,7 +140,7 @@ fun StartButton(
             containerColor = PrimaryColor
         ),
         onClick = {
-            //TODO
+            viewModel.onStartButtonClick()
         }
     ) {
         Text(
@@ -140,6 +151,45 @@ fun StartButton(
                 fontSize = 16.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Medium
+            )
+        )
+    }
+}
+
+// Таймер с отсчётом
+@Composable
+fun Countdown(
+    viewModel: TrainingViewModel = koinViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(140.dp)
+            .padding(0.dp, 80.dp, 0.dp, 0.dp)
+    ){
+        CircularProgressIndicator(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(66.dp),
+            color = uiState.timerColor,
+            strokeWidth = 5.dp,
+            strokeCap = StrokeCap.Round,
+            progress = {
+                uiState.countDownProgress
+            }
+
+        )
+
+        Text(
+            modifier = Modifier
+                .align(Alignment.Center),
+            text = uiState.timer.toString(),
+            style = TextStyle(
+                fontSize = 56.sp,
+                fontWeight = FontWeight.Bold,
+                color = uiState.timerColor
             )
         )
     }
