@@ -43,12 +43,16 @@ class TrainingViewModel(
             currentState.copy(isStarted = true)
         }
 
-        val countDown = viewModelScope.launch(Dispatchers.Default) {
-            countDown()
-        }
+        viewModelScope.launch(Dispatchers.Default) {
+            val countDown = launch {
+                countDown()
+            }
 
-        _uiState.update { currentState ->
-            currentState.copy(isCountdownCompleted = true)
+            countDown.join()
+
+            _uiState.update { currentState ->
+                currentState.copy(isCountdownCompleted = true)
+            }
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mobile_laboratoryproject2.view.dictionary_screen.DictionaryScreen
 import com.example.mobile_laboratoryproject2.view.login_screen.LoginScreen
 import com.example.mobile_laboratoryproject2.view.on_boarding_screen.OnBoardingScreen
+import com.example.mobile_laboratoryproject2.view.question_screen.QuestionScreen
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.SignUpScreen
 import com.example.mobile_laboratoryproject2.view.training_screen.TrainingScreen
 
@@ -99,8 +100,17 @@ fun Navigation() {
                             inclusive = true
                         }
                     }
+                },
+
+                onTrainingStart = {
+                    navController.navigate(Destination.QuestionScreen.name)
                 }
             )
+        }
+
+        // Экран прохождения теста
+        composable(Destination.QuestionScreen.name) {
+            QuestionScreen()
         }
     }
 }

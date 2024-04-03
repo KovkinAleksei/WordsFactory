@@ -44,9 +44,18 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun TrainingScreen(
     onDictionaryClick: () -> Unit,
+    onTrainingStart: () -> Unit,
     viewModel: TrainingViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(null) {
+        viewModel.uiState.collect{
+            if (it.isCountdownCompleted) {
+                onTrainingStart()
+            }
+        }
+    }
 
     Scaffold(
         bottomBar = {
