@@ -2,7 +2,9 @@ package com.example.mobile_laboratoryproject2.viewModel.training_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.domain.use_cases.training_screen.TrainingUseCase
+import com.example.mobile_laboratoryproject2.ui.theme.GoColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.TimerBlue
 import com.example.mobile_laboratoryproject2.ui.theme.TimerGreen
@@ -17,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class TrainingViewModel(
     private val trainingUseCase: TrainingUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _uiState = MutableStateFlow(TrainingUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -25,8 +27,11 @@ class TrainingViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.update { currentState ->
+                val wordsAmount = trainingUseCase.getWordsAmount()
+
                 currentState.copy(
-                    wordsAmount = trainingUseCase.getWordsAmount()
+                    wordsAmount = wordsAmount,
+                    areEnoughWords = wordsAmount >= 3
                 )
             }
         }
@@ -36,47 +41,67 @@ class TrainingViewModel(
     fun onStartButtonClick() {
         _uiState.update { currentState ->
             currentState.copy(isStarted = true)
-
         }
 
         val countDown = viewModelScope.launch(Dispatchers.Default) {
             countDown()
         }
+
+        _uiState.update { currentState ->
+            currentState.copy(isCountdownCompleted = true)
+        }
     }
 
     // Отсчёт
     private suspend fun countDown() {
-        for (second in 5 downTo 1) {
-            changeColor(second)
+        val timerValues = listOf(
+            R.string.five,
+            R.string.four,
+            R.string.three,
+            R.string.two,
+            R.string.one,
+            R.string.go
+        )
+
+        for (timerValue in timerValues) {
+            changeColor(timerValue)
 
             _uiState.update { currentState ->
                 currentState.copy(
-                    countDownProgress = 1f,
-                    timer = second
+                    countDownProgress = if (timerValue != R.string.go)
+                        1f
+                    else
+                        0f,
+                    timerValue = timerValue
                 )
             }
 
             for (i in 1..100) {
-                _uiState.update { currentState ->
-                    currentState.copy(
-                        countDownProgress = _uiState.value.countDownProgress - 0.01f
-                    )
+                if (timerValue != R.string.go) {
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            countDownProgress = _uiState.value.countDownProgress - 0.01f
+                        )
+                    }
                 }
+
                 delay(10)
             }
         }
     }
 
+    // Изменение цвета таймера
     private fun changeColor(second: Int) {
         _uiState.update { currentState ->
-            currentState.copy(timerColor =
-                when(second){
-                    5 -> PrimaryColor
-                    4 -> TimerBlue
-                    3 -> TimerGreen
-                    2 -> TimerYellowColor
-                    1 -> TimerRedColor
-                    else -> TimerRedColor
+            currentState.copy(
+                timerColor =
+                when (second) {
+                    R.string.five -> PrimaryColor
+                    R.string.four -> TimerBlue
+                    R.string.three -> TimerGreen
+                    R.string.two -> TimerYellowColor
+                    R.string.one -> TimerRedColor
+                    else -> GoColor
                 }
             )
         }

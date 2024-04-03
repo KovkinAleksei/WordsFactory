@@ -5,8 +5,10 @@ import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 
 data class TrainingUiState(
     val wordsAmount: Int = 0,
-    val timer: Int = 5,
+    val timerValue: Int = 5,
     val isStarted: Boolean = false,
     val countDownProgress: Float = 1f,
-    val timerColor: Color = PrimaryColor
+    val timerColor: Color = PrimaryColor,
+    val areEnoughWords: Boolean = false,
+    val isCountdownCompleted: Boolean = false
 )
