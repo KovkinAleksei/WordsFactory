@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +34,6 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.ProgressBarGradientEnd
 import com.example.mobile_laboratoryproject2.ui.theme.ProgressBarGradientStart
-import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordModel
 import com.example.mobile_laboratoryproject2.viewModel.question_screen.AnswerOption
 import com.example.mobile_laboratoryproject2.viewModel.question_screen.QuestionViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -58,7 +55,7 @@ fun QuestionScreen(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(0.dp, 32.dp, 0.dp, 0.dp),
-            text = "1 of 10",
+            text = "${uiState.currentQuestion} of ${uiState.questionsAmount}",
             style = TextStyle(
                 fontSize = 16.sp,
                 color = DarkGrayColor
@@ -68,9 +65,10 @@ fun QuestionScreen(
         // Опеределение слова
         Text(
             modifier = Modifier
-                .padding(0.dp, 16.dp, 0.dp, 8.dp),
+                .padding(16.dp, 16.dp, 16.dp, 8.dp)
+                .align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
-            text = uiState.definition,
+            text = uiState.question?.definition ?: "",
             style = TextStyle(
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Medium,
@@ -79,7 +77,7 @@ fun QuestionScreen(
         )
 
         // Варианты ответа
-        uiState.answerOptions.forEach {
+        uiState.question?.answerOptions?.forEach {
             AnswerOptions(option = it)
         }
 
@@ -144,7 +142,11 @@ fun AnswerOptions(
 
 // Прогресс прохождения теста
 @Composable
-fun QuestionsProgress() {
+fun QuestionsProgress(
+    viewModel: QuestionViewModel = koinViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -156,7 +158,7 @@ fun QuestionsProgress() {
         Box(
             modifier = Modifier
                 .fillMaxHeight()
-                .fillMaxWidth(0.75f)
+                .fillMaxWidth(uiState.timerValue)
                 .background(
                     brush = Brush.horizontalGradient(
                         colors = listOf(ProgressBarGradientStart, ProgressBarGradientEnd)

@@ -10,7 +10,7 @@ import com.example.mobile_laboratoryproject2.domain.entities.database_entities.D
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.WordEntity
 
 @Database(
-    version = 2,
+    version = 3,
     entities = [
         UserEntity::class,
         WordEntity::class,
@@ -32,7 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "WordsFactoryDb"
                 )
-                .addMigrations(firstMigration)
+                .addMigrations(firstMigration, secondMigration)
                 .build()
         }
     }

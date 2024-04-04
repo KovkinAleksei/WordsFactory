@@ -1,5 +1,6 @@
 package com.example.mobile_laboratoryproject2.domain.entities.database_entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -13,5 +14,8 @@ data class WordEntity(
     val phonetics: String?,
     val audio: String,
     val partOfSpeech: String,
-    val audioSource: String?
+    val audioSource: String?,
+
+    @ColumnInfo(defaultValue = "0")
+    val learningCoefficient: Int = 0
 )

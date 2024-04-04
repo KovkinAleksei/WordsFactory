@@ -35,4 +35,17 @@ interface WordDao {
     // Получение кол-ва слов в словаре
     @Query("SELECT COUNT(*) FROM words")
     suspend fun getWordsAmount(): Int
+
+
+
+
+
+   @Query("SELECT * FROM words ORDER BY learningCoefficient ASC LIMIT 10")
+    suspend fun getTestAnswers(): List<WordEntity>
+
+    @Query("SELECT * FROM definitions WHERE wordId = :wordId")
+    suspend fun getDefinitions(wordId: Int): List<DefinitionEntity>
+
+    @Query("SELECT * FROM words WHERE word <> :word ORDER BY RANDOM() LIMIT 2")
+    suspend fun getAdditionalWords(word: String): List<WordEntity>
 }

@@ -24,3 +24,9 @@ val firstMigration = object : Migration(1, 2) {
         database.execSQL("CREATE INDEX index_definitions_wordId ON definitions (wordId);")
     }
 }
+
+val secondMigration = object : Migration(2, 3) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE words ADD COLUMN learningCoefficient INTEGER NOT NULL DEFAULT 0;")
+    }
+}
