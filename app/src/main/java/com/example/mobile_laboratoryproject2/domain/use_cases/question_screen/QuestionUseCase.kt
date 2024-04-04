@@ -24,13 +24,30 @@ class QuestionUseCase(
     }
 
     // Сохранение ответа на вопрос
-    fun answer(answer: String?) {
-        _answers.add(answer ?: "")
+    suspend fun answer(answer: String) {
+        if (_answers.size == _questions.size)
+            return
+
+        _answers.add(answer)
+
+        // Изменение коэффициента изучения солова
+        val correctAnswer = _questions[_answers.size - 1].correctAnswer
+
+        if (answer == _questions[_answers.size - 1].correctAnswer) {
+            questionRepository.increaseLearningCoefficient(correctAnswer)
+        }
+        else {
+            questionRepository.decreaseLearningCoefficient(correctAnswer)
+        }
     }
 
     // Загрузка всего теста
     private suspend fun getQuestions(){
         _questions = questionRepository.getQuestoinList()
+
+        val tempList = _questions.toMutableList()
+        tempList.shuffle()
+        _questions = tempList.toList()
     }
 
     // Получение вариантов ответа для вопроса в тесте

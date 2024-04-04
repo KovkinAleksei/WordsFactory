@@ -50,4 +50,20 @@ class QuestionRepositoryImpl(
     private suspend fun getAdditionalWords(word: String): List<WordEntity> {
         return wordDao.getAdditionalWords(word)
     }
+
+    // Увеличение коэффициента изучения слова
+    override suspend fun increaseLearningCoefficient(word: String) {
+        val wordEntity = wordDao.getWord(word)
+
+        if (wordEntity != null)
+            wordDao.updateWord(wordEntity.copy(learningCoefficient = wordEntity.learningCoefficient + 1))
+    }
+
+    // Уменьшение коэффициента изучения слова
+    override suspend fun decreaseLearningCoefficient(word: String) {
+        val wordEntity = wordDao.getWord(word)
+
+        if (wordEntity != null)
+            wordDao.updateWord(wordEntity.copy(learningCoefficient = wordEntity.learningCoefficient - 1))
+    }
 }

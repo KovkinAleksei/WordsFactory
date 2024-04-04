@@ -20,9 +20,9 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-      //  startDestination = Destination.OnBoardingScreen.name
+        startDestination = Destination.OnBoardingScreen.name
         //  startDestination = Destination.DictionaryScreen.name
-        startDestination = Destination.QuestionScreen.name
+       // startDestination = Destination.QuestionScreen.name
     ) {
         // Начальный экран
         composable(Destination.OnBoardingScreen.name) {
@@ -100,14 +100,16 @@ fun Navigation() {
             TrainingScreen(
                 onDictionaryClick = {
                     navController.navigate(Destination.DictionaryScreen.name) {
-                        popUpTo(Destination.TrainingScreen.name) {
+                        popUpTo(Destination.DictionaryScreen.name) {
                             inclusive = true
                         }
                     }
                 },
 
                 onTrainingStart = {
-                    navController.navigate(Destination.QuestionScreen.name)
+                    navController.navigate(Destination.QuestionScreen.name) {
+                        popUpTo(Destination.DictionaryScreen.name)
+                    }
                 }
             )
         }
@@ -117,9 +119,7 @@ fun Navigation() {
             QuestionScreen(
                 onTestFinish = { correct, incorrect ->
                     navController.navigate("${Destination.FinishScreen.name}/${correct}/${incorrect}") {
-                        popUpTo(Destination.QuestionScreen.name) {
-                            inclusive = true
-                        }
+                        popUpTo(Destination.DictionaryScreen.name)
                     }
                 }
             )
@@ -136,7 +136,15 @@ fun Navigation() {
             val correct = navBackStackEntry.arguments?.getInt("correct") ?: 0
             val incorrect = navBackStackEntry.arguments?.getInt("incorrect") ?: 0
 
-            FinishScreen(correct, incorrect)
+            FinishScreen(
+                correct = correct,
+                incorrect = incorrect,
+                onAgainClick = {
+                    navController.navigate(Destination.QuestionScreen.name) {
+                        popUpTo(Destination.DictionaryScreen.name)
+                    }
+                }
+            )
         }
     }
 }

@@ -52,5 +52,6 @@
     <string name="finished_training">Training is finished</string>
     <string name="correct">Correct:</string>
     <string name="incorrect">Incorrect:</string>
+    <string name="again">Again</string>
 
 </resources>

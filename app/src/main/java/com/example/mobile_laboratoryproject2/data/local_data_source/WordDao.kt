@@ -3,6 +3,7 @@ package com.example.mobile_laboratoryproject2.data.local_data_source
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.WordEntity
 
@@ -48,4 +49,8 @@ interface WordDao {
 
     @Query("SELECT * FROM words WHERE word <> :word ORDER BY RANDOM() LIMIT 2")
     suspend fun getAdditionalWords(word: String): List<WordEntity>
+
+    // Сохранение слова локально
+    @Update
+    suspend fun updateWord(word: WordEntity)
 }

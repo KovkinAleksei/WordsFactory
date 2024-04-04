@@ -65,19 +65,17 @@ class QuestionViewModel(
             currentState.copy(question = _uiState.value.question?.copy(answerOptions = newOptions!!))
         }
 
-        // Сохранение ответа
-        questionUseCase.answer(answer.word)
-
         // Переход к следующему вопросу
         viewModelScope.launch {
            // delay(100)
+            questionUseCase.answer(answer.word)
             getNextQuestion()
         }
     }
 
     // Отсчёт времени на вопрос
     private suspend fun countDown() {
-        while (_uiState.value.currentQuestion <= _uiState.value.questionsAmount) {
+        while (!_uiState.value.isFinished) {
             _uiState.update { currentState ->
                 currentState.copy(
                     timerValue = _uiState.value.timerValue - 0.002f
