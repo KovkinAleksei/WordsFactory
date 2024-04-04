@@ -7,6 +7,7 @@ import com.example.mobile_laboratoryproject2.di.dictionaryModule
 import com.example.mobile_laboratoryproject2.di.loginModule
 import com.example.mobile_laboratoryproject2.di.networkModule
 import com.example.mobile_laboratoryproject2.di.onBoardingModule
+import com.example.mobile_laboratoryproject2.di.questionModule
 import com.example.mobile_laboratoryproject2.di.signUpModule
 import com.example.mobile_laboratoryproject2.di.trainingModule
 import org.koin.android.ext.koin.androidContext
@@ -30,7 +31,8 @@ class App : Application() {
                     databaseModule,
                     networkModule,
                     authorizationModule,
-                    trainingModule
+                    trainingModule,
+                    questionModule
                 )
             )
         }
