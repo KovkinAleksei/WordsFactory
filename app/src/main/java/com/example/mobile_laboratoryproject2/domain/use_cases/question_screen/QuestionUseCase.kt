@@ -9,6 +9,20 @@ class QuestionUseCase(
     private var _questions: List<QuestionDto> = listOf()
     private val _answers: MutableList<String> = mutableListOf()
 
+    // Получение кол-ва верных ответов
+    fun getCorrectCount(): Int {
+        return _answers.filterIndexed { index, answer ->
+            answer == _questions[index].correctAnswer
+        }.size
+    }
+
+    // Получение кол-ва неверных ответов
+    fun getIncorrectCount(): Int {
+        return _answers.filterIndexed { index, answer ->
+            answer != _questions[index].correctAnswer
+        }.size
+    }
+
     // Сохранение ответа на вопрос
     fun answer(answer: String?) {
         _answers.add(answer ?: "")

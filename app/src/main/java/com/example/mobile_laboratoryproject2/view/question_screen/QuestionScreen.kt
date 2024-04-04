@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -41,9 +42,17 @@ import org.koin.androidx.compose.koinViewModel
 // Экран прохождения теста
 @Composable
 fun QuestionScreen(
+    onTestFinish: (Int, Int) -> Unit,
     viewModel: QuestionViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(null) {
+        viewModel.uiState.collect{
+            if (it.isFinished)
+                onTestFinish(viewModel.getCorrectCount(), viewModel.getIncorrectCount())
+        }
+    }
 
     Column(
         modifier = Modifier

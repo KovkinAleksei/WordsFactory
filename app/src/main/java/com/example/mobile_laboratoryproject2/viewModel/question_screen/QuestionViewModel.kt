@@ -24,6 +24,16 @@ class QuestionViewModel(
 
     // Получение следующего вопроса
     private suspend fun getNextQuestion() {
+        // Завершение теста
+        if (_uiState.value.currentQuestion == _uiState.value.questionsAmount && _uiState.value.questionsAmount != 0) {
+            _uiState.update { currentState ->
+                currentState.copy(isFinished = true)
+            }
+
+            return
+        }
+
+        // Следующий вопрос
         _uiState.update {currentState ->
             currentState.copy(
                 question = questionUseCase.getAnswerOptions(_uiState.value.currentQuestion),
@@ -32,6 +42,16 @@ class QuestionViewModel(
                 timerValue = 1f
             )
         }
+    }
+
+    // Получение кол-ва верных ответов
+    fun getCorrectCount(): Int {
+        return questionUseCase.getCorrectCount()
+    }
+
+    // Получение кол-ва неверных ответов
+    fun getIncorrectCount(): Int {
+        return questionUseCase.getIncorrectCount()
     }
 
     // Выбор варианта ответа

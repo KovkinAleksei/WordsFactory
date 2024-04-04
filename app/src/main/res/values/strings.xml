@@ -49,5 +49,8 @@
     <string name="go">GO!</string>
     <string name="not_enough_word">Not enough words</string>
     <string name="add_words">Add at least 3 word in your dictionary</string>
+    <string name="finished_training">Training is finished</string>
+    <string name="correct">Correct:</string>
+    <string name="incorrect">Incorrect:</string>
 
 </resources>

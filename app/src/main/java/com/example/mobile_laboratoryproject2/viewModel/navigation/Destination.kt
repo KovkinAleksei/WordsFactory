@@ -8,5 +8,6 @@ enum class Destination {
     DictionaryScreen,
     TrainingScreen,
     VideoScreen,
-    QuestionScreen
+    QuestionScreen,
+    FinishScreen
 }

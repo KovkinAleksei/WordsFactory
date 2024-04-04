@@ -1,10 +1,13 @@
 package com.example.mobile_laboratoryproject2.viewModel.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.mobile_laboratoryproject2.view.dictionary_screen.DictionaryScreen
+import com.example.mobile_laboratoryproject2.view.finish_screen.FinishScreen
 import com.example.mobile_laboratoryproject2.view.login_screen.LoginScreen
 import com.example.mobile_laboratoryproject2.view.on_boarding_screen.OnBoardingScreen
 import com.example.mobile_laboratoryproject2.view.question_screen.QuestionScreen
@@ -111,7 +114,29 @@ fun Navigation() {
 
         // Экран прохождения теста
         composable(Destination.QuestionScreen.name) {
-            QuestionScreen()
+            QuestionScreen(
+                onTestFinish = { correct, incorrect ->
+                    navController.navigate("${Destination.FinishScreen.name}/${correct}/${incorrect}") {
+                        popUpTo(Destination.QuestionScreen.name) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
+        }
+
+        // Экран результатов теста
+        composable(
+            "${Destination.FinishScreen.name}/{correct}/{incorrect}",
+            arguments = listOf(
+                navArgument("correct") {type = NavType.IntType },
+                navArgument("incorrect") { type = NavType.IntType }
+            )
+        ) {navBackStackEntry ->
+            val correct = navBackStackEntry.arguments?.getInt("correct") ?: 0
+            val incorrect = navBackStackEntry.arguments?.getInt("incorrect") ?: 0
+
+            FinishScreen(correct, incorrect)
         }
     }
 }
