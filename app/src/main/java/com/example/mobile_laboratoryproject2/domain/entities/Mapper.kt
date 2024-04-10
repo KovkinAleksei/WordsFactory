@@ -2,6 +2,7 @@ package com.example.mobile_laboratoryproject2.domain.entities
 
 import com.example.mobile_laboratoryproject2.domain.entities.api_response.Definition
 import com.example.mobile_laboratoryproject2.domain.entities.api_response.DictionaryRecord
+import com.example.mobile_laboratoryproject2.domain.entities.api_response.Phonetics
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.WordEntity
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DefinitionModel
@@ -9,14 +10,14 @@ import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordMod
 
 
 class Mapper {
-    companion object  {
+    companion object {
         // Перевод полученого от сервера ответа в модель, используемую в представлении
         fun dictionaryRecordToWordModel(dictionaryRecord: DictionaryRecord): WordModel {
             return WordModel(
                 word = dictionaryRecord.word.replaceFirstChar { it.uppercase() },
                 phonetics = dictionaryRecord.phonetic,
                 audio = if (dictionaryRecord.phonetics.isNotEmpty())
-                    dictionaryRecord.phonetics[0].audio
+                    findPhoneticsSource(dictionaryRecord.phonetics)
                 else
                     "",
                 partOfSpeech = dictionaryRecord.meanings[0].partOfSpeech.replaceFirstChar { it.uppercase() },
@@ -26,6 +27,16 @@ class Mapper {
                     "",
                 definitions = getDefinitionModels(dictionaryRecord)
             )
+        }
+
+        // Поиск аудиозаписи произношения
+        private fun findPhoneticsSource(phoneticsList: List<Phonetics>): String {
+            phoneticsList.forEach { phonetics ->
+                if (phonetics.audio.isNotEmpty())
+                    return phonetics.audio
+            }
+
+            return ""
         }
 
         // Получение переведённого списка определений слова
@@ -56,7 +67,10 @@ class Mapper {
         }
 
         // Получение сущностей определения слова для хранения в бд
-        fun wordModelToDefinitionEntities(word: WordModel, wordEntityId: Int?): List<DefinitionEntity> {
+        fun wordModelToDefinitionEntities(
+            word: WordModel,
+            wordEntityId: Int?
+        ): List<DefinitionEntity> {
             return word.definitions.map {
                 DefinitionEntity(
                     definition = it.definition,
@@ -67,7 +81,10 @@ class Mapper {
         }
 
         // Получение модели слова для представления из сущности слова для хранения в бд
-        fun wordEntityToWordModel(word: WordEntity, definitions: List<DefinitionEntity>): WordModel {
+        fun wordEntityToWordModel(
+            word: WordEntity,
+            definitions: List<DefinitionEntity>
+        ): WordModel {
             return WordModel(
                 word = word.word.replaceFirstChar { it.uppercase() },
                 phonetics = word.phonetics,

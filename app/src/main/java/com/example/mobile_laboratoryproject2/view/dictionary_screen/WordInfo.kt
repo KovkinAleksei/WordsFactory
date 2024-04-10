@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -87,7 +88,10 @@ fun WordInfo(
 
 // Заголовок информации о слове
 @Composable
-fun WordHeader(word: WordModel) {
+fun WordHeader(
+    word: WordModel,
+    viewModel: DictionaryViewModel = koinViewModel()
+) {
     Row {
         Text(
             modifier = Modifier
@@ -110,12 +114,17 @@ fun WordHeader(word: WordModel) {
             )
         )
 
-        Image(
-            modifier = Modifier
-                .padding(16.dp, 24.dp, 0.dp, 0.dp),
-            imageVector = ImageVector.vectorResource(R.drawable.volume_icon),
-            contentDescription = null
-        )
+        if (word.audio.isNotEmpty()) {
+            Image(
+                modifier = Modifier
+                    .padding(16.dp, 24.dp, 0.dp, 0.dp)
+                    .clickable {
+                        viewModel.onAudioClick(word)
+                    },
+                imageVector = ImageVector.vectorResource(R.drawable.volume_icon),
+                contentDescription = null
+            )
+        }
     }
 }
 

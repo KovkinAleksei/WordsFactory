@@ -1,5 +1,7 @@
 package com.example.mobile_laboratoryproject2.viewModel.dictionary_screen
 
+import android.media.AudioAttributes
+import android.media.MediaPlayer
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
@@ -92,6 +94,26 @@ class DictionaryViewModel(
             currentState.copy(
                 isInDictionary = true
             )
+        }
+    }
+
+    // Воспроизведение аудио
+    fun onAudioClick(word: WordModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val mediaPlayer = MediaPlayer().apply {
+                setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+                )
+                setDataSource(word.audio)
+                prepareAsync()
+
+                setOnPreparedListener {
+                    start()
+                }
+            }
         }
     }
 
