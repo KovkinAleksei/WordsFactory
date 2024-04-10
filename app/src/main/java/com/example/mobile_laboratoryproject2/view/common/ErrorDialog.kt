@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.viewModel.sign_up_screen
+package com.example.mobile_laboratoryproject2.view.common
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

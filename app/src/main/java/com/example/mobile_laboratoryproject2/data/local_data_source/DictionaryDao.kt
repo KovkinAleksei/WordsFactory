@@ -8,7 +8,7 @@ import com.example.mobile_laboratoryproject2.domain.entities.database_entities.D
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.WordEntity
 
 @Dao
-interface WordDao {
+interface DictionaryDao {
     // Сохранение слова локально
     @Insert
     suspend fun addWord(word: WordEntity)
@@ -32,24 +32,4 @@ interface WordDao {
     // Удаление слова
     @Query("DELETE FROM words WHERE word = :word")
     suspend fun removeWord(word: String)
-
-    // Получение кол-ва слов в словаре
-    @Query("SELECT COUNT(*) FROM words")
-    suspend fun getWordsAmount(): Int
-
-    // Получение ответов для теста
-   @Query("SELECT * FROM words ORDER BY learningCoefficient ASC LIMIT 10")
-    suspend fun getTestAnswers(): List<WordEntity>
-
-    // Получение определения слова
-    @Query("SELECT * FROM definitions WHERE wordId = :wordId")
-    suspend fun getDefinitions(wordId: Int): List<DefinitionEntity>
-
-    // Получение дополнительных вариантов ответа в тесте
-    @Query("SELECT * FROM words WHERE word <> :word ORDER BY RANDOM() LIMIT 2")
-    suspend fun getAdditionalWords(word: String): List<WordEntity>
-
-    // Обновление слова
-    @Update
-    suspend fun updateWord(word: WordEntity)
 }

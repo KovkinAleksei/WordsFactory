@@ -19,7 +19,9 @@ import com.example.mobile_laboratoryproject2.domain.entities.database_entities.W
     ]
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract val wordDao: WordDao
+    abstract val dictionaryDao: DictionaryDao
+    abstract val trainingDao: TrainingDao
+    abstract val questionDao: QuestionDao
 
     companion object {
         fun createDatabase(context: Context): AppDatabase {

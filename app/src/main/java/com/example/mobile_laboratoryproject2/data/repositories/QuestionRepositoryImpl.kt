@@ -1,6 +1,7 @@
 package com.example.mobile_laboratoryproject2.data.repositories
 
-import com.example.mobile_laboratoryproject2.data.local_data_source.WordDao
+import com.example.mobile_laboratoryproject2.data.local_data_source.DictionaryDao
+import com.example.mobile_laboratoryproject2.data.local_data_source.QuestionDao
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.WordEntity
 import com.example.mobile_laboratoryproject2.domain.use_cases.question_screen.IQuestionRepository
@@ -8,7 +9,7 @@ import com.example.mobile_laboratoryproject2.domain.use_cases.question_screen.Qu
 import kotlin.random.Random
 
 class QuestionRepositoryImpl(
-    private val wordDao: WordDao
+    private val questionDao: QuestionDao
 ): IQuestionRepository {
 
     // Список вопросов для теста
@@ -16,7 +17,7 @@ class QuestionRepositoryImpl(
         val testQuestions = mutableListOf<QuestionDto>()
 
         // Получение слов для повторения
-        val testAnswers = wordDao.getTestAnswers()
+        val testAnswers = questionDao.getTestAnswers()
 
         // Получение определения слова для повторения
         testAnswers.forEach {
@@ -43,27 +44,27 @@ class QuestionRepositoryImpl(
 
     // Определение слова
     private suspend fun getDefinitions(word: WordEntity): List<DefinitionEntity> {
-        return wordDao.getDefinitions(word.id!!)
+        return questionDao.getDefinitions(word.id!!)
     }
 
     // Неверные варианты ответа
     private suspend fun getAdditionalWords(word: String): List<WordEntity> {
-        return wordDao.getAdditionalWords(word)
+        return questionDao.getAdditionalWords(word)
     }
 
     // Увеличение коэффициента изучения слова
     override suspend fun increaseLearningCoefficient(word: String) {
-        val wordEntity = wordDao.getWord(word)
+        val wordEntity = questionDao.getWord(word)
 
         if (wordEntity != null)
-            wordDao.updateWord(wordEntity.copy(learningCoefficient = wordEntity.learningCoefficient + 1))
+            questionDao.updateWord(wordEntity.copy(learningCoefficient = wordEntity.learningCoefficient + 1))
     }
 
     // Уменьшение коэффициента изучения слова
     override suspend fun decreaseLearningCoefficient(word: String) {
-        val wordEntity = wordDao.getWord(word)
+        val wordEntity = questionDao.getWord(word)
 
         if (wordEntity != null)
-            wordDao.updateWord(wordEntity.copy(learningCoefficient = wordEntity.learningCoefficient - 1))
+            questionDao.updateWord(wordEntity.copy(learningCoefficient = wordEntity.learningCoefficient - 1))
     }
 }

@@ -1,7 +1,9 @@
 package com.example.mobile_laboratoryproject2.di
 
 import com.example.mobile_laboratoryproject2.data.local_data_source.AppDatabase
-import com.example.mobile_laboratoryproject2.data.local_data_source.WordDao
+import com.example.mobile_laboratoryproject2.data.local_data_source.DictionaryDao
+import com.example.mobile_laboratoryproject2.data.local_data_source.QuestionDao
+import com.example.mobile_laboratoryproject2.data.local_data_source.TrainingDao
 import org.koin.dsl.module
 
 val databaseModule = module {
@@ -9,8 +11,18 @@ val databaseModule = module {
         AppDatabase.createDatabase(get())
     }
 
-    factory<WordDao> {
+    factory<DictionaryDao> {
         val database = get<AppDatabase>()
-        database.wordDao
+        database.dictionaryDao
+    }
+
+    factory<TrainingDao> {
+        val database = get<AppDatabase>()
+        database.trainingDao
+    }
+
+    factory<QuestionDao> {
+        val database = get<AppDatabase>()
+        database.questionDao
     }
 }

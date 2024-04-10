@@ -27,9 +27,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.viewModel.navigation.Destination
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
@@ -37,8 +35,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.PasswordTextField
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.TextField
 import com.example.mobile_laboratoryproject2.viewModel.login_screen.LoginViewModel
-import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.ErrorDialog
-import kotlinx.coroutines.flow.collect
+import com.example.mobile_laboratoryproject2.view.common.ErrorDialog
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

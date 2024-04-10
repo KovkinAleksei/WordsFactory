@@ -39,7 +39,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.view.common.NavBar
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DictionaryViewModel
 import com.example.mobile_laboratoryproject2.viewModel.navigation.Destination
-import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.ErrorDialog
+import com.example.mobile_laboratoryproject2.view.common.ErrorDialog
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

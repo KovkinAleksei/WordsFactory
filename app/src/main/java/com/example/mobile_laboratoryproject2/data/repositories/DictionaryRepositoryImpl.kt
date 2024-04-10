@@ -1,6 +1,6 @@
 package com.example.mobile_laboratoryproject2.data.repositories
 
-import com.example.mobile_laboratoryproject2.data.local_data_source.WordDao
+import com.example.mobile_laboratoryproject2.data.local_data_source.DictionaryDao
 import com.example.mobile_laboratoryproject2.data.network_data_source.DictionaryApiService
 import com.example.mobile_laboratoryproject2.domain.entities.Mapper
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
@@ -11,7 +11,7 @@ import java.net.UnknownHostException
 
 class DictionaryRepositoryImpl(
     private val dictionaryService: DictionaryApiService,
-    private val wordDao: WordDao
+    private val dictionaryDao: DictionaryDao
 ) : IDictionaryRepository {
     // Поиск слова
     override suspend fun searchWord(word: String) : WordModel? {
@@ -38,7 +38,7 @@ class DictionaryRepositoryImpl(
 
     // Получение слова из бд
     private suspend fun getWordFromDatabase(word: String): WordModel? {
-        val wordEntity = wordDao.getWord(word) ?: return null
+        val wordEntity = dictionaryDao.getWord(word) ?: return null
         val definitionEntities = getWordDefinitions(wordEntity.id!!)
 
         return Mapper.wordEntityToWordModel(wordEntity, definitionEntities)
@@ -46,7 +46,7 @@ class DictionaryRepositoryImpl(
 
     // Получение определений слова из бд
     private suspend fun getWordDefinitions(wordId: Int): List<DefinitionEntity> {
-        return wordDao.getWordDefinitions(wordId)
+        return dictionaryDao.getWordDefinitions(wordId)
     }
 
     // Сохранение слова локально
@@ -55,7 +55,7 @@ class DictionaryRepositoryImpl(
         val wordEntity = Mapper.wordModelToWordEntity(word)
         val formatedWord = wordEntity.copy(word = wordEntity.word.lowercase())
 
-        wordDao.addWord(formatedWord)
+        dictionaryDao.addWord(formatedWord)
 
         // Сохранение определений слова
         addDefinitionsToDictionary(word)
@@ -66,20 +66,20 @@ class DictionaryRepositoryImpl(
         val wordId = getWordId(word.word)
         val definitionEntities = Mapper.wordModelToDefinitionEntities(word, wordId)
 
-        wordDao.addDefinitions(definitionEntities)
+        dictionaryDao.addDefinitions(definitionEntities)
     }
 
     // Получение id слова
     override suspend fun getWordId(word: String) : Int? {
         val formatedWord = word.lowercase()
 
-        return wordDao.getWordId(formatedWord)
+        return dictionaryDao.getWordId(formatedWord)
     }
 
     // Удаление слова из бд
     override suspend fun removeWord(word: String) {
         val formatedWord = word.lowercase()
 
-        wordDao.removeWord(formatedWord)
+        dictionaryDao.removeWord(formatedWord)
     }
 }

@@ -21,8 +21,8 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-       // startDestination = Destination.OnBoardingScreen.name
-          startDestination = Destination.DictionaryScreen.name
+        startDestination = Destination.OnBoardingScreen.name
+        //  startDestination = Destination.DictionaryScreen.name
        // startDestination = Destination.QuestionScreen.name
     ) {
         // Начальный экран
@@ -183,6 +183,9 @@ fun Navigation() {
                             inclusive = true
                         }
                     }
+                },
+                onClose = {
+                    navController.popBackStack()
                 }
             )
         }

@@ -56,5 +56,6 @@
     <string name="optionA">A.</string>
     <string name="optionB">B.</string>
     <string name="optionC">C.</string>
+    <string name="loading">Loading...</string>
 
 </resources>

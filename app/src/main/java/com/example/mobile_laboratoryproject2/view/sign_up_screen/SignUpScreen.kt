@@ -48,7 +48,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
-import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.ErrorDialog
+import com.example.mobile_laboratoryproject2.view.common.ErrorDialog
 import com.example.mobile_laboratoryproject2.viewModel.sign_up_screen.SignUpViewModel
 import org.koin.androidx.compose.koinViewModel
 
