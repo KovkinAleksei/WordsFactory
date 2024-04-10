@@ -14,6 +14,7 @@ class QuestionViewModel(
 ): ViewModel() {
     private val _uiState = MutableStateFlow(QuestionUiState())
     val uiState = _uiState.asStateFlow()
+    private var isAnswered = false
 
     init {
         viewModelScope.launch {
@@ -42,6 +43,8 @@ class QuestionViewModel(
                 timerValue = 1f
             )
         }
+
+        isAnswered = false
     }
 
     // Получение кол-ва верных ответов
@@ -56,6 +59,9 @@ class QuestionViewModel(
 
     // Выбор варианта ответа
     fun onAnswerOptionChoose(answer: AnswerOption) {
+        if (isAnswered)
+            return
+
         // Выделение варианта ответа
         val newOptions = _uiState.value.question?.answerOptions?.toMutableList()?.map {
             it.copy(isChosen = it.word == answer.word)
@@ -67,7 +73,8 @@ class QuestionViewModel(
 
         // Переход к следующему вопросу
         viewModelScope.launch {
-           // delay(100)
+            isAnswered = true
+            delay(300)
             questionUseCase.answer(answer.word)
             getNextQuestion()
         }
