@@ -10,6 +10,7 @@ import com.example.mobile_laboratoryproject2.di.onBoardingModule
 import com.example.mobile_laboratoryproject2.di.questionModule
 import com.example.mobile_laboratoryproject2.di.signUpModule
 import com.example.mobile_laboratoryproject2.di.trainingModule
+import com.example.mobile_laboratoryproject2.di.videoModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -32,7 +33,8 @@ class App : Application() {
                     networkModule,
                     authorizationModule,
                     trainingModule,
-                    questionModule
+                    questionModule,
+                    videoModule
                 )
             )
         }
