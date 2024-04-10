@@ -44,6 +44,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun TrainingScreen(
     onDictionaryClick: () -> Unit,
+    onVideoClick: () -> Unit,
     onTrainingStart: () -> Unit,
     viewModel: TrainingViewModel = koinViewModel()
 ) {
@@ -65,7 +66,8 @@ fun TrainingScreen(
 
                 NavBar(
                     currentScreen = Destination.TrainingScreen,
-                    onDictionaryClick = onDictionaryClick
+                    onDictionaryClick = onDictionaryClick,
+                    onVideoClick = onVideoClick
                 )
             }
         }

@@ -13,6 +13,7 @@ import com.example.mobile_laboratoryproject2.view.on_boarding_screen.OnBoardingS
 import com.example.mobile_laboratoryproject2.view.question_screen.QuestionScreen
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.SignUpScreen
 import com.example.mobile_laboratoryproject2.view.training_screen.TrainingScreen
+import com.example.mobile_laboratoryproject2.view.video_screen.VideoScreen
 
 @Composable
 fun Navigation() {
@@ -91,6 +92,9 @@ fun Navigation() {
                     navController.navigate(Destination.TrainingScreen.name) {
                         popUpTo(Destination.DictionaryScreen.name)
                     }
+                },
+                onVideoClick = {
+                    navController.navigate(Destination.VideoScreen.name)
                 }
             )
         }
@@ -105,9 +109,13 @@ fun Navigation() {
                         }
                     }
                 },
-
                 onTrainingStart = {
                     navController.navigate(Destination.QuestionScreen.name) {
+                        popUpTo(Destination.DictionaryScreen.name)
+                    }
+                },
+                onVideoClick = {
+                    navController.navigate(Destination.VideoScreen.name) {
                         popUpTo(Destination.DictionaryScreen.name)
                     }
                 }
@@ -122,7 +130,6 @@ fun Navigation() {
                         popUpTo(Destination.DictionaryScreen.name)
                     }
                 },
-
                 onBackButtonClick = {
                     navController.navigate(Destination.DictionaryScreen.name) {
                         popUpTo(Destination.DictionaryScreen.name) {
@@ -153,6 +160,24 @@ fun Navigation() {
                     }
                 },
                 onBackButtonClick = {
+                    navController.navigate(Destination.DictionaryScreen.name) {
+                        popUpTo(Destination.DictionaryScreen.name) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
+        }
+
+        // Экран посещения сайта
+        composable(Destination.VideoScreen.name) {
+            VideoScreen(
+                onTrainingClick = {
+                    navController.navigate(Destination.TrainingScreen.name) {
+                        popUpTo(Destination.DictionaryScreen.name)
+                    }
+                },
+                onDictionaryClick = {
                     navController.navigate(Destination.DictionaryScreen.name) {
                         popUpTo(Destination.DictionaryScreen.name) {
                             inclusive = true

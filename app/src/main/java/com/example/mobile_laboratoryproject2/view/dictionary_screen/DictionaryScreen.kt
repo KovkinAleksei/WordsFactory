@@ -46,6 +46,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun DictionaryScreen(
     onTrainingClick: () -> Unit,
+    onVideoClick: () -> Unit,
     viewModel: DictionaryViewModel = koinViewModel()
 )
 {
@@ -56,7 +57,8 @@ fun DictionaryScreen(
         bottomBar = {
             NavBar(
                 currentScreen = Destination.DictionaryScreen,
-                onTrainingClick = onTrainingClick
+                onTrainingClick = onTrainingClick,
+                onVideoClick = onVideoClick
             )
         }
     ) {
