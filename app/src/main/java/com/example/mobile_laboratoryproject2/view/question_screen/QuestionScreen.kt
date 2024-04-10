@@ -1,5 +1,6 @@
 package com.example.mobile_laboratoryproject2.view.question_screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -13,7 +14,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,11 +30,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.ChosenOptionBorderColor
 import com.example.mobile_laboratoryproject2.ui.theme.ChosenOptionFillColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
@@ -45,6 +55,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun QuestionScreen(
     onTestFinish: (Int, Int) -> Unit,
+    onBackButtonClick: () -> Unit,
     viewModel: QuestionViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -61,11 +72,31 @@ fun QuestionScreen(
             .fillMaxSize()
             .background(Color.White)
     ) {
+        // Кнопка возврата
+        Image(
+            modifier = Modifier
+                .padding(16.dp, 16.dp, 0.dp, 0.dp)
+                .align(Alignment.Start)
+                .size(40.dp)
+                .clip(CircleShape)
+                .border(
+                    width = 1.dp,
+                    color = DarkGrayColor,
+                    shape = CircleShape
+                )
+                .clickable {
+                    onBackButtonClick()
+                },
+            contentScale = ContentScale.None,
+            imageVector = ImageVector.vectorResource(R.drawable.back_arrow),
+            contentDescription = null
+        )
+
         // Номер текущего вопроса
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(0.dp, 32.dp, 0.dp, 0.dp),
+                .padding(0.dp, 16.dp, 0.dp, 0.dp),
             text = "${uiState.currentQuestion} of ${uiState.questionsAmount}",
             style = TextStyle(
                 fontSize = 16.sp,
@@ -136,7 +167,7 @@ fun AnswerOptions(
             modifier = Modifier
                 .padding(24.dp, 0.dp, 0.dp, 0.dp)
                 .align(Alignment.CenterVertically),
-            text = option.optionName,
+            text = stringResource(id = option.optionName),
             style = TextStyle(
                 fontSize = 16.sp,
                 color = DarkColor

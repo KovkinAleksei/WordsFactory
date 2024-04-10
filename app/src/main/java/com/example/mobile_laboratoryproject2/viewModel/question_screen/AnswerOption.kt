@@ -4,5 +4,5 @@ package com.example.mobile_laboratoryproject2.viewModel.question_screen
 data class AnswerOption(
     var isChosen: Boolean = false,
     val word: String,
-    val optionName: String
+    val optionName: Int
 )

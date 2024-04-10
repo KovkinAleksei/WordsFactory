@@ -1,5 +1,6 @@
 package com.example.mobile_laboratoryproject2.domain.use_cases.question_screen
 
+import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.viewModel.question_screen.AnswerOption
 import com.example.mobile_laboratoryproject2.viewModel.question_screen.Question
 
@@ -42,7 +43,7 @@ class QuestionUseCase(
     }
 
     // Загрузка всего теста
-    private suspend fun getQuestions(){
+    private suspend fun getAllQuestions() {
         _questions = questionRepository.getQuestoinList()
 
         val tempList = _questions.toMutableList()
@@ -51,9 +52,9 @@ class QuestionUseCase(
     }
 
     // Получение вариантов ответа для вопроса в тесте
-    suspend fun getAnswerOptions(questionIndex: Int): Question {
+    suspend fun getTestQuestion(questionIndex: Int): Question {
         if (_questions.isEmpty())
-            getQuestions()
+            getAllQuestions()
 
         val question = _questions[questionIndex]
 
@@ -78,11 +79,11 @@ class QuestionUseCase(
     }
 
     // Получение нумерации варианта ответа
-    private fun getOptionName(index: Int): String {
+    private fun getOptionName(index: Int): Int {
         return when(index) {
-            0 -> "A."
-            1 -> "B."
-            else -> "C."
+            0 -> R.string.optionA
+            1 -> R.string.optionB
+            else -> R.string.optionC
         }
     }
 }

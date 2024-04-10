@@ -20,8 +20,8 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Destination.OnBoardingScreen.name
-        //  startDestination = Destination.DictionaryScreen.name
+       // startDestination = Destination.OnBoardingScreen.name
+          startDestination = Destination.DictionaryScreen.name
        // startDestination = Destination.QuestionScreen.name
     ) {
         // Начальный экран
@@ -121,6 +121,14 @@ fun Navigation() {
                     navController.navigate("${Destination.FinishScreen.name}/${correct}/${incorrect}") {
                         popUpTo(Destination.DictionaryScreen.name)
                     }
+                },
+
+                onBackButtonClick = {
+                    navController.navigate(Destination.DictionaryScreen.name) {
+                        popUpTo(Destination.DictionaryScreen.name) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
@@ -142,6 +150,13 @@ fun Navigation() {
                 onAgainClick = {
                     navController.navigate(Destination.QuestionScreen.name) {
                         popUpTo(Destination.DictionaryScreen.name)
+                    }
+                },
+                onBackButtonClick = {
+                    navController.navigate(Destination.DictionaryScreen.name) {
+                        popUpTo(Destination.DictionaryScreen.name) {
+                            inclusive = true
+                        }
                     }
                 }
             )

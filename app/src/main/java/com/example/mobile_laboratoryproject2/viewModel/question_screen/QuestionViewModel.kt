@@ -36,7 +36,7 @@ class QuestionViewModel(
         // Следующий вопрос
         _uiState.update {currentState ->
             currentState.copy(
-                question = questionUseCase.getAnswerOptions(_uiState.value.currentQuestion),
+                question = questionUseCase.getTestQuestion(_uiState.value.currentQuestion),
                 currentQuestion = _uiState.value.currentQuestion + 1,
                 questionsAmount = questionUseCase.getQuestionsAmount(),
                 timerValue = 1f

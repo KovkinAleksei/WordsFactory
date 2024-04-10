@@ -104,7 +104,7 @@ fun NavigationElement(
 
     Column(
         modifier = Modifier
-            .width(62.dp)
+            .width(70.dp)
             .clip(RoundedCornerShape(6.dp))
             .clickable(
                 interactionSource = interactionSource,

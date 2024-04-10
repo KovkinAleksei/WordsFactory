@@ -53,5 +53,8 @@
     <string name="correct">Correct:</string>
     <string name="incorrect">Incorrect:</string>
     <string name="again">Again</string>
+    <string name="optionA">A.</string>
+    <string name="optionB">B.</string>
+    <string name="optionC">C.</string>
 
 </resources>
