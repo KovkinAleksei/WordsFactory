@@ -30,3 +30,9 @@ val secondMigration = object : Migration(2, 3) {
         database.execSQL("ALTER TABLE words ADD COLUMN learningCoefficient INTEGER NOT NULL DEFAULT 0;")
     }
 }
+
+var thirdMigration = object : Migration(3, 4) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("DROP TABLE Users;")
+    }
+}

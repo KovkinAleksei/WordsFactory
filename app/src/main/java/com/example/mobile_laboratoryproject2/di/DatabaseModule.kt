@@ -10,10 +10,10 @@ val databaseModule = module {
         AppDatabase.createDatabase(get())
     }
 
-    single<UserDao> {
+    /*single<UserDao> {
         val database = get<AppDatabase>()
         database.userDao
-    }
+    }*/
 
     factory<WordDao> {
         val database = get<AppDatabase>()

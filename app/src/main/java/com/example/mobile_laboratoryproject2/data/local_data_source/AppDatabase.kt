@@ -5,14 +5,12 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.mobile_laboratoryproject2.domain.entities.UserEntity
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.WordEntity
 
 @Database(
-    version = 3,
+    version = 4,
     entities = [
-        UserEntity::class,
         WordEntity::class,
         DefinitionEntity::class
     ],
@@ -21,7 +19,6 @@ import com.example.mobile_laboratoryproject2.domain.entities.database_entities.W
     ]
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract val userDao: UserDao
     abstract val wordDao: WordDao
 
     companion object {
@@ -32,7 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "WordsFactoryDb"
                 )
-                .addMigrations(firstMigration, secondMigration)
+                .addMigrations(firstMigration, secondMigration, thirdMigration)
                 .build()
         }
     }
