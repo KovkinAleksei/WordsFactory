@@ -51,7 +51,10 @@ fun OnBoardingScreen(
 ) {
     val uiState by vm.uiState.collectAsState()
 
-    Column {
+    Column(
+        modifier = Modifier
+            .background(Color.White)
+    ) {
         // Кнопка пропуска
         Text(
             modifier = Modifier
