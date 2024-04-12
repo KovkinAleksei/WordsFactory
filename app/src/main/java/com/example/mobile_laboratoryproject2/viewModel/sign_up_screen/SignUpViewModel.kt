@@ -1,21 +1,29 @@
 package com.example.mobile_laboratoryproject2.viewModel.sign_up_screen
 
+import android.app.Application
+import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.lifecycle.ViewModel
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile_laboratoryproject2.viewModel.ValidationResult
+import com.example.mobile_laboratoryproject2.UserPreferences
 import com.example.mobile_laboratoryproject2.domain.use_cases.sign_up_screen.SignUpUseCase
 import com.example.mobile_laboratoryproject2.domain.use_cases.sign_up_screen.UserDto
+import com.example.mobile_laboratoryproject2.domain.use_cases.sign_up_screen.UserPreferencesSerializer
+import com.example.mobile_laboratoryproject2.viewModel.ValidationResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
-    private val signUpUseCase: SignUpUseCase
-) : ViewModel() {
+    private val signUpUseCase: SignUpUseCase,
+    application: Application
+) : AndroidViewModel(application) {
 
     private val _uiState = MutableStateFlow(SignUpUiState())
     val uiState = _uiState.asStateFlow()

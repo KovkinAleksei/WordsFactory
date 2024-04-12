@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val onBoardingModule = module {
     viewModel<OnBoardingViewModel> {
-        OnBoardingViewModel()
+        OnBoardingViewModel(get())
     }
 }

@@ -1,7 +1,11 @@
 package com.example.mobile_laboratoryproject2.domain.use_cases.sign_up_screen
 
+import android.content.Context
 import android.util.Patterns
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import com.example.mobile_laboratoryproject2.R
+import com.example.mobile_laboratoryproject2.UserPreferences
 import com.example.mobile_laboratoryproject2.viewModel.ValidationResult
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth

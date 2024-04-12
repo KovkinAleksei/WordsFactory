@@ -12,6 +12,7 @@ import com.example.mobile_laboratoryproject2.view.login_screen.LoginScreen
 import com.example.mobile_laboratoryproject2.view.on_boarding_screen.OnBoardingScreen
 import com.example.mobile_laboratoryproject2.view.question_screen.QuestionScreen
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.SignUpScreen
+import com.example.mobile_laboratoryproject2.view.splash_screen.SplashScreen
 import com.example.mobile_laboratoryproject2.view.training_screen.TrainingScreen
 import com.example.mobile_laboratoryproject2.view.video_screen.VideoScreen
 
@@ -21,21 +22,22 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
+        startDestination = Destination.SplashScreen.name
         //startDestination = Destination.OnBoardingScreen.name
-          startDestination = Destination.DictionaryScreen.name
+        //startDestination = Destination.DictionaryScreen.name
     ) {
         // Начальный экран
         composable(Destination.OnBoardingScreen.name) {
             OnBoardingScreen(
                 onSkipButtonClick = {
-                    navController.navigate(Destination.SignUpScreen.name) {
+                    navController.navigate(Destination.LoginScreen.name) {
                         popUpTo(Destination.OnBoardingScreen.name) {
                             inclusive = true
                         }
                     }
                 },
                 onStartButtonClick = {
-                    navController.navigate(Destination.SignUpScreen.name) {
+                    navController.navigate(Destination.LoginScreen.name) {
                         popUpTo(Destination.OnBoardingScreen.name) {
                             inclusive = true
                         }
@@ -185,6 +187,26 @@ fun Navigation() {
                 },
                 onClose = {
                     navController.popBackStack()
+                }
+            )
+        }
+
+        // Экран запуска приложения
+        composable(Destination.SplashScreen.name) {
+            SplashScreen(
+                navigateToOnBoarding = {
+                    navController.navigate(Destination.OnBoardingScreen.name) {
+                        popUpTo(Destination.SplashScreen.name) {
+                            inclusive = true
+                        }
+                    }
+                },
+                navigateTosignIn = {
+                    navController.navigate(Destination.LoginScreen.name) {
+                        popUpTo(Destination.SplashScreen.name) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
