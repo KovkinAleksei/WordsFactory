@@ -18,6 +18,6 @@ val splashScreenModule = module {
     }
 
     viewModel<SplashScreenViewModel>{
-        SplashScreenViewModel(get(), get())
+        SplashScreenViewModel(get())
     }
 }

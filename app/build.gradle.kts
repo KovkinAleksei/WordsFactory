@@ -75,8 +75,11 @@ android {
         implementation("com.google.protobuf:protobuf-javalite:3.8.0")
         implementation("androidx.datastore:datastore-core:1.0.0")
         implementation("androidx.datastore:datastore-preferences:1.0.0")
-       // implementation("androidx.datastore:datastore:0.9.4")
-        //implementation(libs.datastore)
+
+        // glance
+        implementation("androidx.glance:glance:1.0.0")
+        implementation("androidx.glance:glance-appwidget:1.0.0")
+        implementation("androidx.glance:glance-material3:1.0.0")
 
         // firebase
         implementation(platform("com.google.firebase:firebase-bom:32.8.0"))

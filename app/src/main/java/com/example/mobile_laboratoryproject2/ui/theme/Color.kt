@@ -28,3 +28,6 @@ val GoColor = Color(0xFFE3562A)
 
 val ProgressBarGradientEnd = Color(0xFFF29F3F)
 val ProgressBarGradientStart = Color(0xFFEF4949)
+
+val widgetStartColor = Color(0xFFE3562A)
+val widgetEndColor = Color(0xFFF29F3F)
