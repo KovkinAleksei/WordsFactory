@@ -1,6 +1,8 @@
 package com.example.mobile_laboratoryproject2.app
 
 import android.app.Application
+import android.content.Context
+import androidx.datastore.preferences.preferencesDataStore
 import com.example.mobile_laboratoryproject2.di.authorizationModule
 import com.example.mobile_laboratoryproject2.di.databaseModule
 import com.example.mobile_laboratoryproject2.di.dictionaryModule
@@ -12,6 +14,7 @@ import com.example.mobile_laboratoryproject2.di.signUpModule
 import com.example.mobile_laboratoryproject2.di.splashScreenModule
 import com.example.mobile_laboratoryproject2.di.trainingModule
 import com.example.mobile_laboratoryproject2.di.videoModule
+import com.example.mobile_laboratoryproject2.di.widgetModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -36,7 +39,8 @@ class App : Application() {
                     trainingModule,
                     questionModule,
                     videoModule,
-                    splashScreenModule
+                    splashScreenModule,
+                    widgetModule
                 )
             )
         }

@@ -1,11 +1,17 @@
 package com.example.mobile_laboratoryproject2.data.repositories
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import com.example.mobile_laboratoryproject2.data.local_data_source.DictionaryDao
 import com.example.mobile_laboratoryproject2.data.network_data_source.DictionaryApiService
 import com.example.mobile_laboratoryproject2.domain.entities.Mapper
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordModel
 import com.example.mobile_laboratoryproject2.domain.use_cases.dictionary_screen.IDictionaryRepository
+import com.example.mobile_laboratoryproject2.view.widget.WordsFactoryWidget
 import retrofit2.HttpException
 import java.net.UnknownHostException
 
@@ -59,6 +65,9 @@ class DictionaryRepositoryImpl(
 
         // Сохранение определений слова
         addDefinitionsToDictionary(word)
+
+        // Обновление Preferences
+
     }
 
     // Сохранение определений слова локально

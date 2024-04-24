@@ -22,6 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val dictionaryDao: DictionaryDao
     abstract val trainingDao: TrainingDao
     abstract val questionDao: QuestionDao
+    abstract val widgetDao: WidgetDao
 
     companion object {
         fun createDatabase(context: Context): AppDatabase {

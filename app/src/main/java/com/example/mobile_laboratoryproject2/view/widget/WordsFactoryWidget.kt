@@ -1,21 +1,19 @@
 package com.example.mobile_laboratoryproject2.view.widget
 
 import android.content.Context
-import android.widget.Space
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
@@ -23,41 +21,69 @@ import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.provideContent
+import androidx.glance.appwidget.state.updateAppWidgetState
 import androidx.glance.background
 import androidx.glance.color.ColorProvider
+import androidx.glance.currentState
 import androidx.glance.layout.Box
 import androidx.glance.layout.ContentScale
-import androidx.glance.layout.fillMaxHeight
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
-import androidx.glance.layout.width
+import androidx.glance.state.GlanceStateDefinition
+import androidx.glance.state.PreferencesGlanceStateDefinition
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
-import com.example.mobile_laboratoryproject2.ui.theme.widgetEndColor
-import com.example.mobile_laboratoryproject2.ui.theme.widgetStartColor
+import com.example.mobile_laboratoryproject2.viewModel.widget.WidgetViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class WordsFactoryWidget : GlanceAppWidget() {
-    private val wordsAmount = "Words"
+    private val words = "Words"
     private val myDictionary = "My Dictionary"
     private val wordsFactory = "WordsFactory"
     private val alreadyRemember = "I already remember"
 
+    override val stateDefinition: GlanceStateDefinition<*> = PreferencesGlanceStateDefinition
+
     override suspend fun provideGlance(context: Context, id: GlanceId) {
+        val viewModel = WidgetViewModel()
+
         provideContent {
             GlanceTheme {
-                Content()
+                Content(context, id, viewModel)
+              //  Content()
             }
         }
     }
 
     // Разметка виджета
     @Composable
-    private fun Content() {
+    private fun Content(
+        context: Context,
+        id: GlanceId,
+        viewModel: WidgetViewModel
+    ) {
+        LaunchedEffect(currentState()) {
+            CoroutineScope(Dispatchers.IO).launch {
+                updateAppWidgetState(context, id) {
+                    viewModel.updateData()
+                    it[intPreferencesKey("words_amount")] = viewModel.wordsAmount
+                    it[intPreferencesKey("learned_words")] = viewModel.learnedWords
+                }
+
+                update(context, id)
+            }
+        }
+
+        val wordsAmount = currentState<Preferences>().toMutablePreferences()[intPreferencesKey("words_amount")]
+        val learnedWords = currentState<Preferences>().toMutablePreferences()[intPreferencesKey("learned_words")]
+
         androidx.glance.layout.Column(
             modifier = GlanceModifier
                 .fillMaxWidth()
@@ -111,7 +137,7 @@ class WordsFactoryWidget : GlanceAppWidget() {
                 Text(
                     modifier = GlanceModifier
                         .padding(0.dp, 8.dp, 8.dp, 0.dp),
-                    text = "3125 $wordsAmount",
+                    text = "$wordsAmount $words",
                     style = TextStyle(
                         fontSize = 10.sp,
                         color = ColorProvider(GrayColor, GrayColor)
@@ -141,7 +167,7 @@ class WordsFactoryWidget : GlanceAppWidget() {
                 Text(
                     modifier = GlanceModifier
                         .padding(0.dp, 8.dp, 8.dp, 0.dp),
-                    text = "41 $wordsAmount",
+                    text = "$learnedWords $words",
                     style = TextStyle(
                         fontSize = 10.sp,
                         color = ColorProvider(GrayColor, GrayColor)

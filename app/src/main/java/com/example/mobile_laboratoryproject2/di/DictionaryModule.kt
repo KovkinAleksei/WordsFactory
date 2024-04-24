@@ -5,6 +5,7 @@ import com.example.mobile_laboratoryproject2.data.repositories.DictionaryReposit
 import com.example.mobile_laboratoryproject2.domain.use_cases.dictionary_screen.DictionaryUseCase
 import com.example.mobile_laboratoryproject2.domain.use_cases.dictionary_screen.IDictionaryRepository
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DictionaryViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -20,7 +21,7 @@ val dictionaryModule = module {
     }
 
     factory<DictionaryUseCase> {
-        DictionaryUseCase(get())
+        DictionaryUseCase(get(), get(), androidContext())
     }
 
     viewModel<DictionaryViewModel> {
