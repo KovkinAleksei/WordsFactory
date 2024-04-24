@@ -1,11 +1,22 @@
 package com.example.mobile_laboratoryproject2.domain.use_cases.question_screen
 
+import android.content.Context
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.GlanceAppWidgetManager
+import androidx.glance.appwidget.state.updateAppWidgetState
 import com.example.mobile_laboratoryproject2.R
+import com.example.mobile_laboratoryproject2.domain.use_cases.widget.IWidgetRepository
+import com.example.mobile_laboratoryproject2.domain.use_cases.widget.PreferencesKeys
+import com.example.mobile_laboratoryproject2.domain.use_cases.widget.WidgetUseCase
+import com.example.mobile_laboratoryproject2.view.widget.WordsFactoryWidget
 import com.example.mobile_laboratoryproject2.viewModel.question_screen.AnswerOption
 import com.example.mobile_laboratoryproject2.viewModel.question_screen.Question
 
 class QuestionUseCase(
-    private val questionRepository: IQuestionRepository
+    private val questionRepository: IQuestionRepository,
+    private val widgetUseCase: WidgetUseCase,
+    private val context: Context
 ) {
     private var _questions: List<QuestionDto> = listOf()
     private val _answers: MutableList<String> = mutableListOf()
@@ -40,6 +51,9 @@ class QuestionUseCase(
         else {
             questionRepository.decreaseLearningCoefficient(correctAnswer)
         }
+
+        // Обновление виджета
+        updateWidget()
     }
 
     // Загрузка всего теста
@@ -85,5 +99,22 @@ class QuestionUseCase(
             1 -> R.string.optionB
             else -> R.string.optionC
         }
+    }
+
+    // Обновление виджета
+    private suspend fun updateWidget() {
+        try {
+            val glanceId =
+                GlanceAppWidgetManager(context).getGlanceIds(WordsFactoryWidget::class.java)
+                    .firstOrNull()
+                    ?: return
+
+            updateAppWidgetState(context = context, glanceId = glanceId) {
+                it[intPreferencesKey(PreferencesKeys.LEARNED_WORDS)] = widgetUseCase.getLearnedWords()
+            }
+
+            val glanceAppWidget: GlanceAppWidget = WordsFactoryWidget()
+            glanceAppWidget.update(context, glanceId)
+        } catch (e: IllegalArgumentException) { }
     }
 }

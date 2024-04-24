@@ -100,20 +100,7 @@ class DictionaryViewModel(
     // Воспроизведение аудио
     fun onAudioClick(word: WordModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            val mediaPlayer = MediaPlayer().apply {
-                setAudioAttributes(
-                    AudioAttributes.Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .setUsage(AudioAttributes.USAGE_MEDIA)
-                        .build()
-                )
-                setDataSource(word.audio)
-                prepareAsync()
-
-                setOnPreparedListener {
-                    start()
-                }
-            }
+            dictionaryUseCase.playAudio(word)
         }
     }
 

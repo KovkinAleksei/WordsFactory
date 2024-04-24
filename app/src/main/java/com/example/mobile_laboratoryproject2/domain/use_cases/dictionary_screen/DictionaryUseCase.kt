@@ -1,22 +1,22 @@
 package com.example.mobile_laboratoryproject2.domain.use_cases.dictionary_screen
 
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.util.Log
+import android.media.AudioAttributes
+import android.media.MediaPlayer
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.state.updateAppWidgetState
-import androidx.glance.appwidget.updateAll
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.domain.use_cases.widget.IWidgetRepository
+import com.example.mobile_laboratoryproject2.domain.use_cases.widget.PreferencesKeys
+import com.example.mobile_laboratoryproject2.domain.use_cases.widget.WidgetUseCase
 import com.example.mobile_laboratoryproject2.view.widget.WordsFactoryWidget
 import com.example.mobile_laboratoryproject2.viewModel.ValidationResult
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordModel
 
 class DictionaryUseCase(
     private val dictionaryRepository: IDictionaryRepository,
-    private val widgetRepository: IWidgetRepository,
+    private val widgetUseCase: WidgetUseCase,
     private val context: Context
 ) {
     // Валидация поискового запроса
@@ -48,6 +48,24 @@ class DictionaryUseCase(
         return dictionaryRepository.searchWord(word)
     }
 
+    // Воспроизведение аудио
+    suspend fun playAudio(word: WordModel) {
+        val mediaPlayer = MediaPlayer().apply {
+            setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .setUsage(AudioAttributes.USAGE_MEDIA)
+                    .build()
+            )
+            setDataSource(word.audio)
+            prepareAsync()
+
+            setOnPreparedListener {
+                start()
+            }
+        }
+    }
+
     // Удаление слова из словаря
     suspend fun removeWordFromDictionary(word: String) {
         dictionaryRepository.removeWord(word)
@@ -65,7 +83,7 @@ class DictionaryUseCase(
                     ?: return
 
             updateAppWidgetState(context = context, glanceId = glanceId) {
-                it[intPreferencesKey("words_amount")] = widgetRepository.getWordsAmount()
+                it[intPreferencesKey(PreferencesKeys.WORDS_AMOUNT)] = widgetUseCase.getWordsAmount()
             }
 
             val glanceAppWidget: GlanceAppWidget = WordsFactoryWidget()

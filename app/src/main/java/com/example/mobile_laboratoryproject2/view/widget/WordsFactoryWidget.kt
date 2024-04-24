@@ -37,6 +37,7 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import com.example.mobile_laboratoryproject2.R
+import com.example.mobile_laboratoryproject2.domain.use_cases.widget.PreferencesKeys
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.viewModel.widget.WidgetViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -57,7 +58,6 @@ class WordsFactoryWidget : GlanceAppWidget() {
         provideContent {
             GlanceTheme {
                 Content(context, id, viewModel)
-              //  Content()
             }
         }
     }
@@ -73,16 +73,16 @@ class WordsFactoryWidget : GlanceAppWidget() {
             CoroutineScope(Dispatchers.IO).launch {
                 updateAppWidgetState(context, id) {
                     viewModel.updateData()
-                    it[intPreferencesKey("words_amount")] = viewModel.wordsAmount
-                    it[intPreferencesKey("learned_words")] = viewModel.learnedWords
+                    it[intPreferencesKey(PreferencesKeys.WORDS_AMOUNT)] = viewModel.wordsAmount
+                    it[intPreferencesKey(PreferencesKeys.LEARNED_WORDS)] = viewModel.learnedWords
                 }
 
                 update(context, id)
             }
         }
 
-        val wordsAmount = currentState<Preferences>().toMutablePreferences()[intPreferencesKey("words_amount")]
-        val learnedWords = currentState<Preferences>().toMutablePreferences()[intPreferencesKey("learned_words")]
+        val wordsAmount = currentState<Preferences>().toMutablePreferences()[intPreferencesKey(PreferencesKeys.WORDS_AMOUNT)]
+        val learnedWords = currentState<Preferences>().toMutablePreferences()[intPreferencesKey(PreferencesKeys.LEARNED_WORDS)]
 
         androidx.glance.layout.Column(
             modifier = GlanceModifier
