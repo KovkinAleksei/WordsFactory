@@ -69,6 +69,7 @@ class WordsFactoryWidget : GlanceAppWidget() {
         id: GlanceId,
         viewModel: WidgetViewModel
     ) {
+        // Получение данных для виджета
         LaunchedEffect(currentState()) {
             CoroutineScope(Dispatchers.IO).launch {
                 updateAppWidgetState(context, id) {
@@ -89,6 +90,7 @@ class WordsFactoryWidget : GlanceAppWidget() {
                 .fillMaxWidth()
                 .background(ColorProvider(Color.White, Color.White))
         ) {
+            // Заголовок
             androidx.glance.layout.Row(
                 modifier = GlanceModifier
                     .fillMaxWidth()

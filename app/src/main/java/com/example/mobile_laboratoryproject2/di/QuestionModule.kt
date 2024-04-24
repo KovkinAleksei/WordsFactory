@@ -1,5 +1,6 @@
 package com.example.mobile_laboratoryproject2.di
 
+import com.example.mobile_laboratoryproject2.data.local_data_source.TestPreferencesStore
 import com.example.mobile_laboratoryproject2.data.repositories.QuestionRepositoryImpl
 import com.example.mobile_laboratoryproject2.domain.use_cases.question_screen.IQuestionRepository
 import com.example.mobile_laboratoryproject2.domain.use_cases.question_screen.QuestionUseCase
@@ -9,9 +10,12 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val questionModule = module {
+    factory<TestPreferencesStore> {
+        TestPreferencesStore(androidContext())
+    }
 
     factory<IQuestionRepository> {
-        QuestionRepositoryImpl(get())
+        QuestionRepositoryImpl(get(), get())
     }
 
     factory<QuestionUseCase> {

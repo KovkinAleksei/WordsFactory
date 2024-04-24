@@ -9,15 +9,18 @@ class WidgetViewModel: KoinComponent {
     var wordsAmount = 0
     var learnedWords = 0
 
+    // Обновление виджета
     suspend fun updateData() {
         wordsAmount = getWordsAmount()
         learnedWords = getLearnedWords()
     }
 
+    // Получение кол-ва слов в словаре
     private suspend fun getWordsAmount(): Int {
         return widgetUseCase.getWordsAmount()
     }
 
+    // Получение кол-ва выученных слов
     private suspend fun getLearnedWords(): Int {
         return widgetUseCase.getLearnedWords()
     }

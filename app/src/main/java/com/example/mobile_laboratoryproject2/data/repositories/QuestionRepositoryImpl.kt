@@ -1,16 +1,21 @@
 package com.example.mobile_laboratoryproject2.data.repositories
 
-import com.example.mobile_laboratoryproject2.data.local_data_source.DictionaryDao
+import android.app.Application
 import com.example.mobile_laboratoryproject2.data.local_data_source.QuestionDao
+import com.example.mobile_laboratoryproject2.data.local_data_source.TestPreferencesStore
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.WordEntity
 import com.example.mobile_laboratoryproject2.domain.use_cases.question_screen.IQuestionRepository
 import com.example.mobile_laboratoryproject2.domain.use_cases.question_screen.QuestionDto
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import kotlin.random.Random
 
 class QuestionRepositoryImpl(
-    private val questionDao: QuestionDao
-): IQuestionRepository {
+    private val questionDao: QuestionDao,
+    private val application: Application
+): KoinComponent, IQuestionRepository {
+    private val testPrefs by inject<TestPreferencesStore>()
 
     // Список вопросов для теста
     override suspend fun getQuestoinList(): List<QuestionDto> {
@@ -66,5 +71,12 @@ class QuestionRepositoryImpl(
 
         if (wordEntity != null)
             questionDao.updateWord(wordEntity.copy(learningCoefficient = wordEntity.learningCoefficient - 1))
+    }
+
+    // Обновление дня прохождения теста
+    override suspend fun updateLastTestCompletedDate(date: String) {
+        testPrefs.store.updateData {
+            it.toBuilder().setLastCompletedDate(date).build()
+        }
     }
 }

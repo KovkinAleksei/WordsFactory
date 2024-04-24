@@ -19,7 +19,14 @@ class QuestionViewModel(
         viewModelScope.launch {
             getNextQuestion()
             countDown()
+
+            updateTestCompletionDate()
         }
+    }
+
+    // Обновление даты прохождения теста
+    private suspend fun updateTestCompletionDate() {
+        questionUseCase.cancelReminderToday()
     }
 
     // Получение следующего вопроса

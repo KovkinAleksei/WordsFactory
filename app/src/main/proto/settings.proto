@@ -6,3 +6,7 @@ option java_multiple_files = true;
 message UserPreferences {
     bool is_on_boarding_shown = 1;
 }
+
+message TestPreferences {
+    string last_completed_date = 1;
+}

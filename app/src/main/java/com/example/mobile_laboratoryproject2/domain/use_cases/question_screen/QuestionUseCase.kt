@@ -12,6 +12,7 @@ import com.example.mobile_laboratoryproject2.domain.use_cases.widget.WidgetUseCa
 import com.example.mobile_laboratoryproject2.view.widget.WordsFactoryWidget
 import com.example.mobile_laboratoryproject2.viewModel.question_screen.AnswerOption
 import com.example.mobile_laboratoryproject2.viewModel.question_screen.Question
+import java.time.LocalDate
 
 class QuestionUseCase(
     private val questionRepository: IQuestionRepository,
@@ -20,6 +21,12 @@ class QuestionUseCase(
 ) {
     private var _questions: List<QuestionDto> = listOf()
     private val _answers: MutableList<String> = mutableListOf()
+
+    // Обновление дня прохождения теста
+    suspend fun cancelReminderToday() {
+        val currentDate = LocalDate.now().toString()
+        questionRepository.updateLastTestCompletedDate(currentDate)
+    }
 
     // Получение кол-ва верных ответов
     fun getCorrectCount(): Int {

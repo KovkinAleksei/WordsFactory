@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.domain.use_cases.sign_up_screen
+package com.example.mobile_laboratoryproject2.domain.use_cases.splash_screen
 
 import android.content.Context
 import androidx.datastore.core.CorruptionException

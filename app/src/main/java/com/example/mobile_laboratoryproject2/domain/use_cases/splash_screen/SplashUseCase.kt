@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.Flow
 class SplashUseCase(
     private val splashRepository: ISplashRepository
 ) {
-    suspend fun IsOnBoardingShown(): Flow<UserPreferences> {
-        return splashRepository.IsOnBoardingShown()
+    suspend fun isOnBoardingShown(): Flow<UserPreferences> {
+        return splashRepository.isOnBoardingShown()
     }
 
-    suspend fun UpdateOnBoarding() {
-        splashRepository.UpdateOnBoarding()
+    suspend fun updateOnBoarding() {
+        splashRepository.updateOnBoarding()
     }
 }

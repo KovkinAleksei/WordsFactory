@@ -1,14 +1,7 @@
 package com.example.mobile_laboratoryproject2.viewModel.splash_screen
 
-import android.app.Application
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile_laboratoryproject2.UserPreferences
-import com.example.mobile_laboratoryproject2.domain.use_cases.sign_up_screen.UserPreferencesSerializer
 import com.example.mobile_laboratoryproject2.domain.use_cases.splash_screen.SplashUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,8 +16,9 @@ class SplashScreenViewModel(
     val uiState = _uiState.asStateFlow()
 
     init {
+        // Проверка первого входа в приложение
         viewModelScope.launch {
-            val onBoardingShowFlow = splashUseCase.IsOnBoardingShown()
+            val onBoardingShowFlow = splashUseCase.isOnBoardingShown()
             var isCollected = false
 
             onBoardingShowFlow.collectLatest {
@@ -39,10 +33,8 @@ class SplashScreenViewModel(
                     isCollected = true
                 }
 
-                splashUseCase.UpdateOnBoarding()
+                splashUseCase.updateOnBoarding()
             }
-
-            splashUseCase.UpdateOnBoarding()
         }
     }
 }
