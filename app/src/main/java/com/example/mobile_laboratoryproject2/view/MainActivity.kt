@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.mobile_laboratoryproject2.viewModel.navigation.Navigation
 import com.example.mobile_laboratoryproject2.ui.theme.MobileLaboratoryProject2Theme
+import com.example.mobile_laboratoryproject2.viewModel.navigation.Navigation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

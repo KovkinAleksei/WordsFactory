@@ -7,7 +7,7 @@ import androidx.room.Query
 interface WidgetDao {
     // Получение кол-во слов
     @Query("SELECT COUNT(*) FROM words")
-    suspend fun getWordsAmount() : Int
+    suspend fun getWordsAmount(): Int
 
     @Query("SELECT COUNT(*) FROM words WHERE learningCoefficient > 5")
     suspend fun getLearnedWords(): Int

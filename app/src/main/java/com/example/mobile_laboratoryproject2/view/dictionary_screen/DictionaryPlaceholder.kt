@@ -20,8 +20,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 
 @Composable
-fun DictionaryPlaceholder()
-{
+fun DictionaryPlaceholder() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +39,7 @@ fun DictionaryPlaceholder()
             modifier = Modifier
                 .padding(0.dp, 32.dp, 0.dp, 0.dp)
                 .align(Alignment.CenterHorizontally),
-            text = stringResource(id =R.string.no_word),
+            text = stringResource(id = R.string.no_word),
             style = TextStyle(
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Medium,

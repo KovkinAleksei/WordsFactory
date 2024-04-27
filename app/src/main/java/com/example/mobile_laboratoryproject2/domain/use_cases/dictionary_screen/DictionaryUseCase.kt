@@ -88,6 +88,7 @@ class DictionaryUseCase(
 
             val glanceAppWidget: GlanceAppWidget = WordsFactoryWidget()
             glanceAppWidget.update(context, glanceId)
-        } catch (e: IllegalArgumentException) { }
+        } catch (e: IllegalArgumentException) {
+        }
     }
 }

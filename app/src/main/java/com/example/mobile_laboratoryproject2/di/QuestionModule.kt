@@ -15,14 +15,14 @@ val questionModule = module {
     }
 
     factory<IQuestionRepository> {
-        QuestionRepositoryImpl(get(), get())
+        QuestionRepositoryImpl(get())
     }
 
     factory<QuestionUseCase> {
         QuestionUseCase(get(), get(), androidContext())
     }
 
-    viewModel<QuestionViewModel>{
+    viewModel<QuestionViewModel> {
         QuestionViewModel(get())
     }
 }

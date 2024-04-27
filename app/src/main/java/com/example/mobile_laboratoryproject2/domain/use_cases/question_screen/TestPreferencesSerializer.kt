@@ -1,4 +1,4 @@
-package com.example.mobile_laboratoryproject2.viewModel.question_screen
+package com.example.mobile_laboratoryproject2.domain.use_cases.question_screen
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer

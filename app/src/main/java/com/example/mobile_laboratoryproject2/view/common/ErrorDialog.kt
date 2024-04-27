@@ -25,8 +25,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 fun ErrorDialog(
     errorMessage: Int,
     onDismiss: () -> Unit
-)
-{
+) {
     Dialog(
         onDismissRequest = {
             onDismiss()

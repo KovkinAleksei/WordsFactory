@@ -13,13 +13,14 @@ class LoginUseCase(
 ) {
     // Авторизация
     suspend fun login(loginCredentials: LoginCredentials): ValidationResult {
-        try{
-            firebaseAuth.signInWithEmailAndPassword(loginCredentials.email, loginCredentials.password).await()
-        }
-        catch (e: FirebaseAuthInvalidCredentialsException){
+        try {
+            firebaseAuth.signInWithEmailAndPassword(
+                loginCredentials.email,
+                loginCredentials.password
+            ).await()
+        } catch (exception: FirebaseAuthInvalidCredentialsException) {
             return ValidationResult(false, R.string.invalid_email_password)
-        }
-        catch (e: FirebaseNetworkException) {
+        } catch (exception: FirebaseNetworkException) {
             return ValidationResult(false, R.string.no_connection)
         }
 
@@ -28,7 +29,7 @@ class LoginUseCase(
 
     // Валидация email и пароля
     fun validateFieldValues(loginCredentials: LoginCredentials): ValidationResult {
-        return  if (loginCredentials.email.isEmpty())
+        return if (loginCredentials.email.isEmpty())
             ValidationResult(
                 false,
                 R.string.email_is_empty

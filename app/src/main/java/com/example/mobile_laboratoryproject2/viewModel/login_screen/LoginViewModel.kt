@@ -4,9 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile_laboratoryproject2.viewModel.ValidationResult
 import com.example.mobile_laboratoryproject2.domain.use_cases.login_screen.LoginCredentials
 import com.example.mobile_laboratoryproject2.domain.use_cases.login_screen.LoginUseCase
+import com.example.mobile_laboratoryproject2.viewModel.ValidationResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,13 +30,6 @@ class LoginViewModel(
     // Ввод пароля пользователя
     fun handlePasswordInput(input: TextFieldValue) {
         password.value = input.copy(input.text.replace(" ", ""))
-    }
-
-    // Скрытие пароля
-    fun onHideButtonClick() {
-        _uiState.update { currentState ->
-            currentState.copy(isHiddenPassword = !_uiState.value.isHiddenPassword)
-        }
     }
 
     // Авторизация

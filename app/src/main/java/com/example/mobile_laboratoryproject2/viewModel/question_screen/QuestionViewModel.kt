@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class QuestionViewModel(
     private val questionUseCase: QuestionUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _uiState = MutableStateFlow(QuestionUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -41,7 +41,7 @@ class QuestionViewModel(
         }
 
         // Следующий вопрос
-        _uiState.update {currentState ->
+        _uiState.update { currentState ->
             currentState.copy(
                 question = questionUseCase.getTestQuestion(_uiState.value.currentQuestion),
                 currentQuestion = _uiState.value.currentQuestion + 1,

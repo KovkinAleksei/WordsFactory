@@ -37,8 +37,6 @@ import com.example.mobile_laboratoryproject2.R
 import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
-import com.example.mobile_laboratoryproject2.viewModel.training_screen.TrainingViewModel
-import org.koin.androidx.compose.koinViewModel
 
 // Экран завершения теста
 @Composable
@@ -84,7 +82,7 @@ fun FinishScreen(
             painter = painterResource(id = R.drawable.finish_img),
             contentDescription = null
         )
-        
+
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

@@ -25,7 +25,8 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
 class App : Application() {
-    private val channelDescription = "Reminds to complete a test if users hasn't completed it in that day"
+    private val channelDescription =
+        "Reminds to complete a test if users hasn't completed it in that day"
     private val channelName = "Reminder"
 
     override fun onCreate() {
@@ -68,7 +69,8 @@ class App : Application() {
         )
         channel.description = channelDescription
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 }

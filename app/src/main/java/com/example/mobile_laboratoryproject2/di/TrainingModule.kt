@@ -16,7 +16,7 @@ val trainingModule = module {
         TrainingUseCase(get())
     }
 
-    viewModel<TrainingViewModel>{
+    viewModel<TrainingViewModel> {
         TrainingViewModel(get())
     }
 }

@@ -23,8 +23,6 @@ fun Navigation() {
     NavHost(
         navController = navController,
         startDestination = Destination.SplashScreen.name
-        //startDestination = Destination.OnBoardingScreen.name
-        //startDestination = Destination.DictionaryScreen.name
     ) {
         // Начальный экран
         composable(Destination.OnBoardingScreen.name) {
@@ -145,10 +143,10 @@ fun Navigation() {
         composable(
             "${Destination.FinishScreen.name}/{correct}/{incorrect}",
             arguments = listOf(
-                navArgument("correct") {type = NavType.IntType },
+                navArgument("correct") { type = NavType.IntType },
                 navArgument("incorrect") { type = NavType.IntType }
             )
-        ) {navBackStackEntry ->
+        ) { navBackStackEntry ->
             val correct = navBackStackEntry.arguments?.getInt("correct") ?: 0
             val incorrect = navBackStackEntry.arguments?.getInt("incorrect") ?: 0
 

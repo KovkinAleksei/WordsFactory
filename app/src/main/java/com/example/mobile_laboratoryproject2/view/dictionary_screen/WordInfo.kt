@@ -39,14 +39,14 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DefinitionModel
-import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordModel
 import com.example.mobile_laboratoryproject2.ui.theme.GrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.RedColor
 import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
 import com.example.mobile_laboratoryproject2.view.common.NavBar
+import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DefinitionModel
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DictionaryViewModel
+import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordModel
 import com.example.mobile_laboratoryproject2.viewModel.navigation.Destination
 import org.koin.androidx.compose.koinViewModel
 
@@ -185,14 +185,15 @@ fun Meanings(word: WordModel) {
 fun DefinitionsList(
     word: WordModel
 ) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .padding(0.dp, 12.dp, 0.dp, 4.dp)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp, 12.dp, 0.dp, 4.dp)
     )
     {
         LazyColumn(
             modifier = Modifier
-               // .padding(0.dp, 4.dp, 0.dp, 0.dp)
+                // .padding(0.dp, 4.dp, 0.dp, 0.dp)
                 .fillMaxSize()
         ) {
             items(
@@ -203,22 +204,24 @@ fun DefinitionsList(
             }
         }
 
-        Box(modifier = Modifier
-            .height(10.dp)
-            .background(
-                brush = Brush.verticalGradient(listOf(Color.Transparent, Color.White))
-            )
-            .fillMaxWidth()
-            .align(Alignment.BottomCenter)
+        Box(
+            modifier = Modifier
+                .height(10.dp)
+                .background(
+                    brush = Brush.verticalGradient(listOf(Color.Transparent, Color.White))
+                )
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
         )
 
-        Box(modifier = Modifier
-            .height(10.dp)
-            .background(
-                brush = Brush.verticalGradient(listOf(Color.White, Color.Transparent))
-            )
-            .fillMaxWidth()
-            .align(Alignment.TopCenter)
+        Box(
+            modifier = Modifier
+                .height(10.dp)
+                .background(
+                    brush = Brush.verticalGradient(listOf(Color.White, Color.Transparent))
+                )
+                .fillMaxWidth()
+                .align(Alignment.TopCenter)
         )
     }
 

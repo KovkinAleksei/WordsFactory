@@ -22,8 +22,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 
 // Третья страница приветственного экрана
 @Composable
-fun OnBoardingThirdPage()
-{
+fun OnBoardingThirdPage() {
     Column {
         Image(
             modifier = Modifier

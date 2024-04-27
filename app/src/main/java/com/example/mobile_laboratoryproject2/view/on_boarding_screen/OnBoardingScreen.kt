@@ -121,8 +121,7 @@ fun Pagination(vm: OnBoardingViewModel = koinViewModel()) {
         for (i in 1..uiState.pagesCount) {
             if (i == uiState.currentPage) {
                 SelectedPage()
-            }
-            else {
+            } else {
                 UnselectedPage()
             }
         }

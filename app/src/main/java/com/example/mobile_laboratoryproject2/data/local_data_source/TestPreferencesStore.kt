@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import com.example.mobile_laboratoryproject2.TestPreferences
-import com.example.mobile_laboratoryproject2.viewModel.question_screen.TestPreferencesSerializer
+import com.example.mobile_laboratoryproject2.domain.use_cases.question_screen.TestPreferencesSerializer
 
 class TestPreferencesStore(
     private val context: Context

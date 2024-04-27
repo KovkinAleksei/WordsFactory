@@ -10,7 +10,7 @@ import com.example.mobile_laboratoryproject2.domain.entities.database_entities.W
 interface QuestionDao {
     // Получение слова
     @Query("SELECT * FROM words WHERE word = :word")
-    suspend fun getWord(word: String) : WordEntity?
+    suspend fun getWord(word: String): WordEntity?
 
     // Получение ответов для теста
     @Query("SELECT * FROM words ORDER BY learningCoefficient ASC LIMIT 10")

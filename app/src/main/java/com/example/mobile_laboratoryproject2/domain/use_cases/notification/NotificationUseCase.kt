@@ -18,12 +18,13 @@ import java.time.LocalDate
 
 class NotificationUseCase(
     private val context: Context
-): KoinComponent {
+) : KoinComponent {
     companion object {
         const val CHANNEL_ID = "WordsFactoryNotificationChannel"
     }
 
-    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private val notificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val testPrefs: TestPreferencesStore by inject<TestPreferencesStore>()
     private val notificationTitle = "Reminder"
     private val notificationText = "Don't forget to complete a test today"

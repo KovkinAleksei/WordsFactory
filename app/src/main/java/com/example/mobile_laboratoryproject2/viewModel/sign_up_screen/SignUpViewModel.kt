@@ -66,7 +66,7 @@ class SignUpViewModel(
             }
 
             if (_uiState.value.areFieldValuesCorrect) {
-                _uiState.update {currentState ->
+                _uiState.update { currentState ->
                     currentState.copy(isSignedUp = true)
                 }
             }

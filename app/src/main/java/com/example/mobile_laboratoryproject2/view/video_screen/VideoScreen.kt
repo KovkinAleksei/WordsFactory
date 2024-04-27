@@ -47,7 +47,7 @@ fun VideoScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(null) {
-        viewModel.uiState.collect{ state ->
+        viewModel.uiState.collect { state ->
             if (state.isClosed)
                 onClose()
         }
@@ -124,7 +124,7 @@ fun VideoScreen(
             }
 
             // Ошибка при загрузке страницы
-            if (!uiState.viewClient.loadingResult.value.isCorrect && !uiState.isClosed){
+            if (!uiState.viewClient.loadingResult.value.isCorrect && !uiState.isClosed) {
                 ErrorDialog(
                     errorMessage = uiState.viewClient.loadingResult.value.errorMessage,
                     onDismiss = {

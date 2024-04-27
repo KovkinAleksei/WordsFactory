@@ -6,5 +6,5 @@ import retrofit2.http.Path
 
 interface DictionaryApiService {
     @GET("{word}")
-    suspend fun getDictionaryRecord(@Path("word") word: String) : List<DictionaryRecord>
+    suspend fun getDictionaryRecord(@Path("word") word: String): List<DictionaryRecord>
 }

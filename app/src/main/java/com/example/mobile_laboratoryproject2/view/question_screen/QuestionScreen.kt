@@ -61,7 +61,7 @@ fun QuestionScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(null) {
-        viewModel.uiState.collect{
+        viewModel.uiState.collect {
             if (it.isFinished)
                 onTestFinish(viewModel.getCorrectCount(), viewModel.getIncorrectCount())
         }

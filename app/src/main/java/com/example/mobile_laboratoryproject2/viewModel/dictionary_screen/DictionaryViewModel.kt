@@ -1,7 +1,5 @@
 package com.example.mobile_laboratoryproject2.viewModel.dictionary_screen
 
-import android.media.AudioAttributes
-import android.media.MediaPlayer
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel

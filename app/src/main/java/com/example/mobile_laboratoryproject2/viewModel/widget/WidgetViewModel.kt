@@ -4,7 +4,7 @@ import com.example.mobile_laboratoryproject2.domain.use_cases.widget.WidgetUseCa
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class WidgetViewModel: KoinComponent {
+class WidgetViewModel : KoinComponent {
     private val widgetUseCase: WidgetUseCase by inject<WidgetUseCase>()
     var wordsAmount = 0
     var learnedWords = 0

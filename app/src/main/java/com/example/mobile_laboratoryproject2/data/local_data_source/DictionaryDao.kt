@@ -3,7 +3,6 @@ package com.example.mobile_laboratoryproject2.data.local_data_source
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.WordEntity
 
@@ -19,11 +18,11 @@ interface DictionaryDao {
 
     // Получение id слова
     @Query("SELECT id FROM words WHERE word = :word")
-    suspend fun getWordId(word: String) : Int?
+    suspend fun getWordId(word: String): Int?
 
     // Получение слова
     @Query("SELECT * FROM words WHERE word = :word")
-    suspend fun getWord(word: String) : WordEntity?
+    suspend fun getWord(word: String): WordEntity?
 
     // Получение определений слова
     @Query("SELECT * FROM definitions WHERE wordId = :wordId")

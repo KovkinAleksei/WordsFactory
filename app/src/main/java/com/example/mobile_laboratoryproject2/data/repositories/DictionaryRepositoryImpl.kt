@@ -1,17 +1,11 @@
 package com.example.mobile_laboratoryproject2.data.repositories
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import com.example.mobile_laboratoryproject2.data.local_data_source.DictionaryDao
 import com.example.mobile_laboratoryproject2.data.network_data_source.DictionaryApiService
 import com.example.mobile_laboratoryproject2.domain.entities.Mapper
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
-import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordModel
 import com.example.mobile_laboratoryproject2.domain.use_cases.dictionary_screen.IDictionaryRepository
-import com.example.mobile_laboratoryproject2.view.widget.WordsFactoryWidget
+import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordModel
 import retrofit2.HttpException
 import java.net.UnknownHostException
 
@@ -20,7 +14,7 @@ class DictionaryRepositoryImpl(
     private val dictionaryDao: DictionaryDao
 ) : IDictionaryRepository {
     // Поиск слова
-    override suspend fun searchWord(word: String) : WordModel? {
+    override suspend fun searchWord(word: String): WordModel? {
         // Получение слова с сервера
         return try {
             getWordFromServer(word)
@@ -36,8 +30,7 @@ class DictionaryRepositoryImpl(
         return try {
             val wordEntity = dictionaryService.getDictionaryRecord(word)[0]
             Mapper.dictionaryRecordToWordModel(wordEntity)
-        }
-        catch (exception: HttpException) {
+        } catch (exception: HttpException) {
             null
         }
     }
@@ -79,7 +72,7 @@ class DictionaryRepositoryImpl(
     }
 
     // Получение id слова
-    override suspend fun getWordId(word: String) : Int? {
+    override suspend fun getWordId(word: String): Int? {
         val formatedWord = word.lowercase()
 
         return dictionaryDao.getWordId(formatedWord)

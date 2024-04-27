@@ -1,8 +1,6 @@
 package com.example.mobile_laboratoryproject2.viewModel.video_screen
 
 import androidx.lifecycle.ViewModel
-import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.viewModel.ValidationResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -15,7 +13,6 @@ class VideoViewModel : ViewModel() {
     fun onDismiss() {
         _uiState.update { currentState ->
             currentState.copy(isClosed = true)
-            //currentState.copy(viewClient = VideoViewClient())
         }
     }
 }

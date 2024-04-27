@@ -1,6 +1,5 @@
 package com.example.mobile_laboratoryproject2.domain.entities.api_response
 
-import com.example.mobile_laboratoryproject2.domain.entities.api_response.Definition
 import kotlinx.serialization.Serializable
 
 @Serializable

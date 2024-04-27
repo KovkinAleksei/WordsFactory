@@ -147,7 +147,7 @@ fun Countdown(
             .fillMaxWidth()
             .height(140.dp)
             .padding(0.dp, 80.dp, 0.dp, 0.dp)
-    ){
+    ) {
         CircularProgressIndicator(
             modifier = Modifier
                 .align(Alignment.Center)

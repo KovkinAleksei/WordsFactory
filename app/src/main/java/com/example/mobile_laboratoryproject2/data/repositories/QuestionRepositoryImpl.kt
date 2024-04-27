@@ -1,6 +1,5 @@
 package com.example.mobile_laboratoryproject2.data.repositories
 
-import android.app.Application
 import com.example.mobile_laboratoryproject2.data.local_data_source.QuestionDao
 import com.example.mobile_laboratoryproject2.data.local_data_source.TestPreferencesStore
 import com.example.mobile_laboratoryproject2.domain.entities.database_entities.DefinitionEntity
@@ -12,9 +11,8 @@ import org.koin.core.component.inject
 import kotlin.random.Random
 
 class QuestionRepositoryImpl(
-    private val questionDao: QuestionDao,
-    private val application: Application
-): KoinComponent, IQuestionRepository {
+    private val questionDao: QuestionDao
+) : KoinComponent, IQuestionRepository {
     private val testPrefs by inject<TestPreferencesStore>()
 
     // Список вопросов для теста

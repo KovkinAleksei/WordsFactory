@@ -8,21 +8,19 @@ import kotlinx.coroutines.flow.update
 
 class OnBoardingViewModel(
     private val application: Application
-): AndroidViewModel(application) {
+) : AndroidViewModel(application) {
     private val _uiState = MutableStateFlow(OnBoardingUiState())
     val uiState = _uiState.asStateFlow()
 
     // Пролистывание страниц нажатием кнопки Next
-    fun onNextClick()
-    {
+    fun onNextClick() {
         _uiState.update { currentState ->
             currentState.copy(currentPage = currentState.currentPage + 1)
         }
     }
 
     // Пролистывание страниц свайпом
-    fun onPagerScroll(selectedPage: Int)
-    {
+    fun onPagerScroll(selectedPage: Int) {
         _uiState.update { currentState ->
             currentState.copy(currentPage = selectedPage)
         }

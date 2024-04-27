@@ -1,10 +1,7 @@
 package com.example.mobile_laboratoryproject2.domain.use_cases.splash_screen
 
-import android.content.Context
 import androidx.datastore.core.CorruptionException
-import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
-import androidx.datastore.dataStore
 import com.example.mobile_laboratoryproject2.UserPreferences
 import com.google.protobuf.InvalidProtocolBufferException
 import java.io.InputStream

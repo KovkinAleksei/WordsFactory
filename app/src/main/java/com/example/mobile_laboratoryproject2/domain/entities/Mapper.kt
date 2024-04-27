@@ -8,7 +8,6 @@ import com.example.mobile_laboratoryproject2.domain.entities.database_entities.W
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.DefinitionModel
 import com.example.mobile_laboratoryproject2.viewModel.dictionary_screen.WordModel
 
-
 class Mapper {
     companion object {
         // Перевод полученого от сервера ответа в модель, используемую в представлении

@@ -22,8 +22,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 
 // Вторая страница приветственного экрана
 @Composable
-fun OnBoardingSecondPage()
-{
+fun OnBoardingSecondPage() {
     Column {
         Image(
             modifier = Modifier

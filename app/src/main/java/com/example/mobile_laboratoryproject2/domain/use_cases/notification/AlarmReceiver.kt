@@ -6,7 +6,7 @@ import android.content.Intent
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class AlarmReceiver: KoinComponent, BroadcastReceiver() {
+class AlarmReceiver : KoinComponent, BroadcastReceiver() {
     private val notificationUseCase: NotificationUseCase by inject<NotificationUseCase>()
 
     override fun onReceive(context: Context?, intent: Intent?) {

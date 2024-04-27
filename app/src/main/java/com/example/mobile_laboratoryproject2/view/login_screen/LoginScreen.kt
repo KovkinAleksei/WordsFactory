@@ -34,10 +34,10 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkColor
 import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 import com.example.mobile_laboratoryproject2.ui.theme.PrimaryColor
 import com.example.mobile_laboratoryproject2.ui.theme.SecondaryColor
+import com.example.mobile_laboratoryproject2.view.common.ErrorDialog
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.PasswordTextField
 import com.example.mobile_laboratoryproject2.view.sign_up_screen.TextField
 import com.example.mobile_laboratoryproject2.viewModel.login_screen.LoginViewModel
-import com.example.mobile_laboratoryproject2.view.common.ErrorDialog
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

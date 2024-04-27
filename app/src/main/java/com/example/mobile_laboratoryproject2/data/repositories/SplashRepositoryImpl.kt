@@ -5,13 +5,13 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import com.example.mobile_laboratoryproject2.UserPreferences
-import com.example.mobile_laboratoryproject2.domain.use_cases.splash_screen.UserPreferencesSerializer
 import com.example.mobile_laboratoryproject2.domain.use_cases.splash_screen.ISplashRepository
+import com.example.mobile_laboratoryproject2.domain.use_cases.splash_screen.UserPreferencesSerializer
 import kotlinx.coroutines.flow.Flow
 
 class SplashRepositoryImpl(
     private val application: Application
-): ISplashRepository {
+) : ISplashRepository {
     private val Context.userPreferencesStore: DataStore<UserPreferences> by dataStore(
         fileName = "user_preferences",
         serializer = UserPreferencesSerializer

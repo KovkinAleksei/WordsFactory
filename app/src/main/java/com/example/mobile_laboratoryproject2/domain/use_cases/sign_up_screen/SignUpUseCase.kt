@@ -1,11 +1,7 @@
 package com.example.mobile_laboratoryproject2.domain.use_cases.sign_up_screen
 
-import android.content.Context
 import android.util.Patterns
-import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.UserPreferences
 import com.example.mobile_laboratoryproject2.viewModel.ValidationResult
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -18,16 +14,13 @@ class SignUpUseCase(
 ) {
     // Регистрация пользователя
     suspend fun registerUser(user: UserDto): ValidationResult {
-        try{
+        try {
             firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
-        }
-        catch (e: FirebaseAuthUserCollisionException) {
+        } catch (exception: FirebaseAuthUserCollisionException) {
             return ValidationResult(false, R.string.email_is_taken)
-        }
-        catch (e: FirebaseAuthInvalidCredentialsException) {
+        } catch (exception: FirebaseAuthInvalidCredentialsException) {
             return ValidationResult(false, R.string.invalid_email)
-        }
-        catch (e: FirebaseNetworkException) {
+        } catch (exception: FirebaseNetworkException) {
             return ValidationResult(false, R.string.no_connection)
         }
 

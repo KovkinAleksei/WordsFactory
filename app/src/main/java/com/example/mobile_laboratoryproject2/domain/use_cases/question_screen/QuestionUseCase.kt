@@ -6,7 +6,6 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.state.updateAppWidgetState
 import com.example.mobile_laboratoryproject2.R
-import com.example.mobile_laboratoryproject2.domain.use_cases.widget.IWidgetRepository
 import com.example.mobile_laboratoryproject2.domain.use_cases.widget.PreferencesKeys
 import com.example.mobile_laboratoryproject2.domain.use_cases.widget.WidgetUseCase
 import com.example.mobile_laboratoryproject2.view.widget.WordsFactoryWidget
@@ -54,8 +53,7 @@ class QuestionUseCase(
 
         if (answer == _questions[_answers.size - 1].correctAnswer) {
             questionRepository.increaseLearningCoefficient(correctAnswer)
-        }
-        else {
+        } else {
             questionRepository.decreaseLearningCoefficient(correctAnswer)
         }
 
@@ -101,7 +99,7 @@ class QuestionUseCase(
 
     // Получение нумерации варианта ответа
     private fun getOptionName(index: Int): Int {
-        return when(index) {
+        return when (index) {
             0 -> R.string.optionA
             1 -> R.string.optionB
             else -> R.string.optionC
@@ -117,11 +115,13 @@ class QuestionUseCase(
                     ?: return
 
             updateAppWidgetState(context = context, glanceId = glanceId) {
-                it[intPreferencesKey(PreferencesKeys.LEARNED_WORDS)] = widgetUseCase.getLearnedWords()
+                it[intPreferencesKey(PreferencesKeys.LEARNED_WORDS)] =
+                    widgetUseCase.getLearnedWords()
             }
 
             val glanceAppWidget: GlanceAppWidget = WordsFactoryWidget()
             glanceAppWidget.update(context, glanceId)
-        } catch (e: IllegalArgumentException) { }
+        } catch (exception: IllegalArgumentException) {
+        }
     }
 }

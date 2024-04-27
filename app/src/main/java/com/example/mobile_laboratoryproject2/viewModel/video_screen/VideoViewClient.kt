@@ -1,6 +1,5 @@
 package com.example.mobile_laboratoryproject2.viewModel.video_screen
 
-import android.graphics.Bitmap
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse

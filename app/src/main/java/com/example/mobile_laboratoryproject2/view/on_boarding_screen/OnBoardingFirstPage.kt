@@ -22,8 +22,7 @@ import com.example.mobile_laboratoryproject2.ui.theme.DarkGrayColor
 
 // Первая страница приветственного экрана
 @Composable
-fun OnBoardingFirstPage()
-{
+fun OnBoardingFirstPage() {
     Column {
         Image(
             modifier = Modifier
